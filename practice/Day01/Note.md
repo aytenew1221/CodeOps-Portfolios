@@ -1,4 +1,4 @@
-Day 01 Notes
+#Day 01 Notes
 Five Terminal Commands
 
 1. pwd
