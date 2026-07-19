@@ -1,5 +1,5 @@
 # Function to load stock from a file
-def load_stock(filename):
+def load_stock(filename): 
     stock = {}
 
     try:
