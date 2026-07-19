@@ -1,4 +1,4 @@
-# customer_report.py
+# customer_report project 
 customers = [
     ("Abebe", 1500),
     ("Hana", 850),
