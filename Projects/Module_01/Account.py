@@ -8,7 +8,7 @@ class Account:
         self.account_number = account_number
 
         # Private attribute
-        self.__balance = balance
+        self.__balance = balance 
 
     # Read-only property
     @property
