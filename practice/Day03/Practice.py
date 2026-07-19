@@ -1,5 +1,5 @@
 
-# Day 03 Practice
+## Day 03 Practice
 
 # 1. Unique cities
 print("1. Unique Cities")
