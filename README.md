@@ -1,4 +1,6 @@
-## Currently Learning
+# Aytenew Ayele
+
+# My ccurent Journy
 
 - Python Programming
 - Object-Oriented Programming (OOP)
@@ -11,34 +13,14 @@
 - REST APIs
 - Full-Stack Web Development
 
----
-
 ## Technologies & Tools
 
 - Python
-- HTML
-- CSS
-- JavaScript
-- Git
-- GitHub
 - Visual Studio Code
-- PostgreSQL
-- MongoDB
-
----
-
-## Projects
-
-This repository will continue to grow as I complete projects throughout my studies, including:
-
-- Python Practice Programs
-- Banking System
-- Customer Management System
-- Web Development Projects
-- Database Applications
-- Full-Stack Applications
-
----
+- HTML- CSS- JavaScript
+- Visual Studio Code
+- PostgreSQL - MongoDB
+- React, Node.js
 
 ## My Goals
 
@@ -56,7 +38,6 @@ This repository will continue to grow as I complete projects throughout my studi
 - Python Fundamentals
 - Functions and Modules
 - Object-Oriented Programming
-- Git & GitHub
 - HTML, CSS & JavaScript
 - Database Development
 - Full-Stack Projects
