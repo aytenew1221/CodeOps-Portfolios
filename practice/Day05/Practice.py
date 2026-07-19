@@ -15,5 +15,5 @@ class SavingsAccount(Account):
         self.balance += self.balance * self.interest_rate
 s = SavingsAccount("Almaz", 1500)
 s.deposit(500)#inherited
-print(s.balance)  
+print(s.balance)   
 
