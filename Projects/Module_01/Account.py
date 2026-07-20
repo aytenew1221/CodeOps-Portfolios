@@ -39,7 +39,7 @@ class Account:
         print(f"Owner          : {self.owner}")
         print(f"Account Number : {self.account_number}")
         print(f"Balance        : {self.balance:.2f} ETB")
-        print("=======================================\n")
+        
 
 
 class SavingsAccount(Account):
@@ -75,21 +75,21 @@ class CurrentAccount(Account):
         )
 
 
-# ---------------- Main Program ---------------- #
 
-account1 = Account("Abebe Kebede", "10010001")
+
+Aytenew = Account("Aytenew Ayele", "10010001")
 
 try:
-    account1.statement()
+    Aytenew.statement()
 
     print("Depositing 5000 ETB...")
-    account1.deposit(5000)
+    Aytenew.deposit(5000)
 
     print("Withdrawing 1500 ETB...")
-    account1.withdraw(1500)
+    Aytenew.withdraw(1500)
 
     print("Trying to withdraw 10000 ETB...")
-    account1.withdraw(10000)
+    Aytenew.withdraw(10000)
 
 except BalanceException as e:
     print("Balance Error:", e)
@@ -98,7 +98,7 @@ except ValueError as e:
     print("Input Error:", e)
 
 finally:
-    account1.statement()
+    Aytenew.statement()
 
 
 print("\n===== Savings Account =====")
