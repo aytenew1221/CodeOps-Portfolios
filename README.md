@@ -4,23 +4,10 @@
 
 - Python Programming
 - Object-Oriented Programming (OOP)
-- Git & GitHub
-- HTML5
-- CSS3
-- JavaScript
-- SQL & PostgreSQL
-- MongoDB
-- REST APIs
+- HTML5- CSS3- JavaScript
+- SQL & PostgreSQL- MongoDB
+- REST APIs,- React, Node.js
 - Full-Stack Web Development
-
-## Technologies & Tools
-
-- Python
-- Visual Studio Code
-- HTML- CSS- JavaScript
-- Visual Studio Code
-- PostgreSQL - MongoDB
-- React, Node.js
 
 ## My Goals
 
@@ -32,14 +19,3 @@
 - Build a strong professional software development portfolio.
 
 ---
-
-## Learning Journey
-
-- Python Fundamentals
-- Functions and Modules
-- Object-Oriented Programming
-- HTML, CSS & JavaScript
-- Database Development
-- Full-Stack Projects
-
-# Name: Aytenew Ayele
