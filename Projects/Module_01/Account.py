@@ -1,39 +1,39 @@
+class BalanceException(Exception):
+    """Raised when a withdrawal exceeds the available balance."""
+    pass
 
-# Addis Bank - Account Management System
 
 class Account:
-    def __init__(self, owner, account_number, balance=1500):
-        # Public attributes
+    def __init__(self, owner, account_number, balance=0):
         self.owner = owner
         self.account_number = account_number
+        self.__balance = balance
 
-        # Private attribute
-        self.__balance = balance 
-
-    # Read-only property
     @property
     def balance(self):
         return self.__balance
 
-    # Deposit money
+    # Protected method for subclasses
+    def _update_balance(self, amount):
+        self.__balance += amount
+
     def deposit(self, amount):
         if amount <= 0:
-            print("Deposit amount must be greater than 0 ETB.")
-        else:
-            self.__balance += amount
-            print(f"{amount:.2f} ETB deposited successfully.")
+            raise ValueError("Deposit amount must be greater than 0 ETB.")
 
-    # Withdraw money
+        self.__balance += amount
+        print(f"{amount:.2f} ETB deposited successfully.")
+
     def withdraw(self, amount):
         if amount <= 0:
-            print("Withdrawal amount must be greater than 0 ETB.")
-        elif amount > self.__balance:
-            print("Insufficient balance.")
-        else:
-            self.__balance -= amount
-            print(f"{amount:.2f} ETB withdrawn successfully.")
+            raise ValueError("Withdrawal amount must be greater than 0 ETB.")
 
-    # Display account statement
+        if amount > self.__balance:
+            raise BalanceException("Insufficient balance.")
+
+        self.__balance -= amount
+        print(f"{amount:.2f} ETB withdrawn successfully.")
+
     def statement(self):
         print("\n========== Account Statement ==========")
         print(f"Owner          : {self.owner}")
@@ -50,7 +50,9 @@ class SavingsAccount(Account):
     def add_interest(self):
         interest = self.balance * self.interest_rate
         self.deposit(interest)
-        print(f"Interest of {interest:.2f} ETB applied at a rate of {self.interest_rate * 100:.2f}%.")
+        print(f"Interest of {interest:.2f} ETB added.")
+
+
 class CurrentAccount(Account):
     def __init__(self, owner, account_number, balance=1500, overdraft_limit=1000):
         super().__init__(owner, account_number, balance)
@@ -58,30 +60,69 @@ class CurrentAccount(Account):
 
     def withdraw(self, amount):
         if amount <= 0:
-            print("Withdrawal amount must be greater than 0 ETB.")
-        elif amount > self.balance + self.overdraft_limit:
-            print("Insufficient balance and overdraft limit exceeded.")
-        else:
-            self._Account__balance -= amount
-            print(f"{amount:.2f} ETB withdrawn successfully. Current balance: {self.balance:.2f} ETB.")  
+            raise ValueError("Withdrawal amount must be greater than 0 ETB.")
+
+        if amount > self.balance + self.overdraft_limit:
+            raise BalanceException(
+                "Insufficient balance and overdraft limit exceeded."
+            )
+
+        self._update_balance(-amount)
+
+        print(
+            f"{amount:.2f} ETB withdrawn successfully."
+            f" Current balance: {self.balance:.2f} ETB"
+        )
 
 
-# Main Program
+# ---------------- Main Program ---------------- #
 
 account1 = Account("Abebe Kebede", "10010001")
 
-account1.statement()
+try:
+    account1.statement()
 
-print("Depositing 5000 ETB...")
-account1.deposit(5000)
+    print("Depositing 5000 ETB...")
+    account1.deposit(5000)
 
-print("Withdrawing 1500 ETB...")
-account1.withdraw(1500)
+    print("Withdrawing 1500 ETB...")
+    account1.withdraw(1500)
 
-print("Trying to withdraw 10000 ETB...")
-account1.withdraw(10000)
+    print("Trying to withdraw 10000 ETB...")
+    account1.withdraw(10000)
 
-print("Trying to deposit -500 ETB...")
-account1.deposit(-500)
+except BalanceException as e:
+    print("Balance Error:", e)
 
-account1.statement()
+except ValueError as e:
+    print("Input Error:", e)
+
+finally:
+    account1.statement()
+
+
+print("\n===== Savings Account =====")
+
+savings = SavingsAccount("Sara", "20020001")
+
+savings.statement()
+
+savings.add_interest()
+
+savings.statement()
+
+
+print("\n===== Current Account =====")
+
+current = CurrentAccount("Dawit", "30030001")
+
+current.statement()
+
+try:
+    current.withdraw(2000)   # Balance 1500 + overdraft 1000 = 2500 allowed
+    current.statement()
+
+    current.withdraw(1000)   # Exceeds available limit
+
+except BalanceException as e:
+    print("Balance Error:", e)
