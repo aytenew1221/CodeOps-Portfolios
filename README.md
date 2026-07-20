@@ -1,7 +1,5 @@
 # Aytenew Ayele
 
-![alt text](photo_5956356746446048466_x.jpg)
-
 ## Currently Learning
 
 - Python Programming
