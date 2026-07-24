@@ -173,9 +173,7 @@ class AccountRegistry:
             key=lambda account: account.account_number
         )
 
-    # ============================
-    # DAY 08
-    # ============================
+
 
     # 1. Balance Leaderboard
     def top_by_balance(self, n):
@@ -234,7 +232,7 @@ savings = AccountFactory.create("savings", "Aytenew","1001",1500)
 
 current = AccountFactory.create("current","Aytenew","1002",2000)
 
-third = AccountFactory.create("savings","Ayele","1003",5000)
+third = AccountFactory.create("savings","Aytenew","1003",5000)
 
 # Attach observers
 AlertService.attach(savings)
