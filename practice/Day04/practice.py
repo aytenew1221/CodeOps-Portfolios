@@ -1,4 +1,4 @@
-# Class, object and Encapsulation
+# Class, object and Encapsulation   for class work
 class Account:
     def __init__(self, owner, balance):
         self.owner = owner          # Public attribute
