@@ -1,201 +1,132 @@
-from abc import ABC, abstractmethod
-import math
-
-#  Single Responsibility Principle (SRP)
-
-print("=" * 50)
-print("1. Single Responsibility Principle (SRP)")
-print("=" * 50)
+#account.py======
+class BalanceException(Exception):
+    pass
 
 
-class Report:
-    """Responsible only for creating the report."""
+#  Observer 
 
-    def __init__(self, content):
-        self.content = content
-
-    def generate(self):
-        return f"Report Content:\n{self.content}"
+class SMSAlert:
+    def update(self, message):
+        print(f"SMS Alert: {message}")
 
 
-class ReportSaver:
-    """Responsible only for saving reports."""
+# Base Account 
+class Account:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self._balance = balance
+        self._observers = []
 
-    def save(self, report):
-        print("Saving report...")
-        print(report.generate())
+    @property
+    def balance(self):
+        return self._balance
 
+    def subscribe(self, observer):
+        self._observers.append(observer)
 
-class ReportEmailer:
-    """Responsible only for emailing reports."""
+    def _notify(self, message):
+        for observer in self._observers:
+            observer.update(message)
 
-    def send(self, report, email):
-        print(f"Sending report to {email}...")
-        print(report.generate())
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit amount must be greater than zero.")
 
+        self._balance += amount
+        self._notify(
+            f"{self.owner} deposited {amount:.2f} ETB. "
+            f"New balance: {self.balance:.2f} ETB"
+        )
 
-report = Report("Monthly Sales Report")
-saver = ReportSaver()
-emailer = ReportEmailer()
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be greater than zero.")
 
-saver.save(report)
-emailer.send(report, "aytenew@gmail.com")
+        if amount > self.balance:
+            raise BalanceException("Insufficient balance.")
 
-#  Open/Closed Principle (OCP)
-
-
-print("2. Open/Closed Principle (OCP)")
-
-
-
-class Shape(ABC):
-
-    @abstractmethod
-    def area(self):
-        pass
-
-
-class Circle(Shape):
-
-    def __init__(self, radius):
-        self.radius = radius
-
-    def area(self):
-        return math.pi * self.radius ** 2
+        self._balance -= amount
+        self._notify(
+            f"{self.owner} withdrew {amount:.2f} ETB. "
+            f"New balance: {self.balance:.2f} ETB"
+        )
 
 
-class Square(Shape):
+# Savings Account 
 
-    def __init__(self, side):
-        self.side = side
+class SavingsAccount(Account):
+    def __init__(self, owner, balance=0, interest_rate=0.02):
+        super().__init__(owner, balance)
+        self.interest_rate = interest_rate
 
-    def area(self):
-        return self.side ** 2
+    def add_interest(self):
+        interest = self.balance * self.interest_rate
+        self._balance += interest
 
-
-class Triangle(Shape):
-
-    def __init__(self, base, height):
-        self.base = base
-        self.height = height
-
-    def area(self):
-        return 0.5 * self.base * self.height
+        self._notify(
+            f"Interest of {interest:.2f} ETB added. "
+            f"Balance: {self.balance:.2f} ETB"
+        )
 
 
-shapes = [
-    Circle(5),
-    Square(4),
-    Triangle(6, 3)
-]
+#  Current Account 
+class CurrentAccount(Account):
+    def __init__(self, owner, balance=0, overdraft_limit=1000):
+        super().__init__(owner, balance)
+        self.overdraft_limit = overdraft_limit
 
-for shape in shapes:
-    print(f"{shape.__class__.__name__} Area = {shape.area():.2f}")
+    def withdraw(self, amount):
+        if amount > self.balance + self.overdraft_limit:
+            raise BalanceException("Overdraft limit exceeded.")
 
+        self._balance -= amount
 
-# 3. Singleton Pattern
-
-
-print("3. Singleton Pattern")
-print("=" * 50)
-
-
-class AppSettings:
-    _instance = None
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            cls._instance.currency = "ETB"
-        return cls._instance
+        self._notify(
+            f"{self.owner} withdrew {amount:.2f} ETB. "
+            f"Balance: {self.balance:.2f} ETB"
+        )
 
 
-settings1 = AppSettings()
-settings2 = AppSettings()
-
-print("Currency:", settings1.currency)
-print("Same object?", settings1 is settings2)
-
-
-# 4. Factory Pattern
-
-
-
-print("4. Factory Pattern")
-
-
-
-class ShapeFactory:
+# Factory 
+class AccountFactory:
 
     @staticmethod
-    def create(kind, *args):
-
+    def create(kind, owner, balance=0):
         kind = kind.lower()
 
-        if kind == "circle":
-            return Circle(*args)
+        if kind == "savings":
+            return SavingsAccount(owner, balance)
 
-        elif kind == "square":
-            return Square(*args)
-
-        elif kind == "triangle":
-            return Triangle(*args)
+        elif kind == "current":
+            return CurrentAccount(owner, balance)
 
         else:
-            raise ValueError("Unknown shape type.")
+            raise ValueError("Unknown account type.")
 
 
-shape1 = ShapeFactory.create("circle", 7)
-shape2 = ShapeFactory.create("square", 5)
-shape3 = ShapeFactory.create("triangle", 8, 4)
+#  Alert Service 
+class AlertService:
 
-print(type(shape1).__name__, "Area =", round(shape1.area(), 2))
-print(type(shape2).__name__, "Area =", round(shape2.area(), 2))
-print(type(shape3).__name__, "Area =", round(shape3.area(), 2))
-
-
-# 5. Observer Pattern
+    @staticmethod
+    def attach(account):
+        account.subscribe(SMSAlert())
 
 
+# Main Program 
 
-print("5. Observer Pattern")
+# Open accounts using the factory
+savings = AccountFactory.create("savings", "Aytenew", 1500)
+current = AccountFactory.create("current", "Aytenew", 2000)
 
+# Attach SMS alerts
+AlertService.attach(savings)
+AlertService.attach(current)
 
+# Transactions
+savings.deposit(500)
+savings.add_interest()
 
-class NewsAgency:
+current.withdraw(2500)
 
-    def __init__(self):
-        self.subscribers = []
-
-    def subscribe(self, subscriber):
-        self.subscribers.append(subscriber)
-
-    def unsubscribe(self, subscriber):
-        self.subscribers.remove(subscriber)
-
-    def notify(self, news):
-        for subscriber in self.subscribers:
-            subscriber.update(news)
-
-
-class EmailSubscriber:
-
-    def update(self, news):
-        print(f"Email Subscriber received: {news}")
-
-
-class SMSSubscriber:
-
-    def update(self, news):
-        print(f"SMS Subscriber received: {news}")
-
-
-agency = NewsAgency()
-
-email_sub = EmailSubscriber()
-sms_sub = SMSSubscriber()
-
-agency.subscribe(email_sub)
-agency.subscribe(sms_sub)
-
-agency.notify("Breaking New:  Nothing ")
+print(f"\nSavings Balance: {savings.balance:.2f} ETB")
+print(f"Current Balance: {current.balance:.2f} ETB")
