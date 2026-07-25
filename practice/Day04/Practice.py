@@ -1,119 +1,50 @@
+# Class, object and Encapsulation
+class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner          # Public attribute
+        self.__balance = balance    # Private attribute
 
-# Classes and Objects 
+    # Getter method
+    def get_balance(self):
+        return self.__balance
 
-class Book:
-    def __init__(self, title, author, pages):
-        self.title = title
-        self.author = author
-        self.pages = pages
-
-    def describe(self):
-        print(f'"{self.title}" by {self.author} - {self.pages} pages')
-
-
-book1 = Book("Python Basics", "John Smith", 250)
-book2 = Book("Learning Git", "Sarah Brown", 180)
-
-print("1. Book Class")
-book1.describe()
-book2.describe()
-
-print("\n" + "=" * 40)
-
-# ------------------------------------------
-# 2, 3 & 4. Product Class
-# ------------------------------------------
-
-class Product:
-    def __init__(self, name, price, quantity):
-        self.name = name
-        self.price = price
-        self.__quantity = quantity      # Private attribute
-
-    @property
-    def quantity(self):
-        """Getter for quantity."""
-        return self.__quantity
-
-    @quantity.setter
-    def quantity(self, value):
-        """Setter that prevents negative quantities."""
-        if value >= 0:
-            self.__quantity = value
+    # Deposit method
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+            print(f"{amount} ETB deposited.")
         else:
-            print("Quantity cannot be negative.")
+            print("Invalid deposit amount.")
 
-    def restock(self, n):
-        self.__quantity += n
-        print(f"{self.name} restocked by {n}.")
-
-    def sell(self, n):
-        if n <= self.__quantity:
-            self.__quantity -= n
-            print(f"{n} {self.name}(s) sold.")
+    # Withdraw method
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("Invalid withdrawal amount.")
+        elif amount > self.__balance:
+            print("Insufficient balance.")
         else:
-            print("Not enough stock available.")
+            self.__balance -= amount
+            print(f"{amount} ETB withdrawn.")
 
+    # Display account information
     def display(self):
-        print(f"{self.name} | Price: {self.price} ETB | Quantity: {self.quantity}")
+        print(f"Owner: {self.owner}")
+        print(f"Balance: {self.__balance} ETB")
 
 
-# ------------------------------------------
-# Create Products
-# ------------------------------------------
+# Object Creation
+Aytenew = Account("Aytenew", 1500000)
 
-product1 = Product("Paracetamol", 50, 20)
-product2 = Product("Bandage", 15, 30)
-product3 = Product("Vitamin C", 80, 10)
+# Access public attribute
+print(Aytenew.owner)
 
-print("2. Product Class")
-product1.display()
-product2.display()
-product3.display()
+# Access private attribute through a method
+print(Aytenew.get_balance())
 
-print("\nRestocking Paracetamol...")
-product1.restock(5)
+# Perform transactions
+Aytenew.deposit(500)
+Aytenew.withdraw(300)
 
-print("Selling 8 Paracetamol...")
-product1.sell(8)
+# Display final account details
+Aytenew.display()
 
-product1.display()
-
-print("\n" + "=" * 40)
-
-# ------------------------------------------
-# 4. Validation
-# ------------------------------------------
-
-print("4. Validation Example")
-
-print("Trying to sell more than available...")
-product3.sell(20)
-
-print("\nTrying to set quantity to -5...")
-product2.quantity = -5
-
-print("\nCurrent Products:")
-product1.display()
-product2.display()
-product3.display()
-
-print("\n" + "=" * 40)
-
-# ------------------------------------------
-# 5. Prove Independence
-# ------------------------------------------
-
-print("5. Prove Independence")
-
-print("\nSelling 5 Bandages...")
-product2.sell(5)
-
-print("\nProduct 1")
-product1.display()
-
-print("Product 2")
-product2.display()
-
-print("Product 3")
-product3.display()
