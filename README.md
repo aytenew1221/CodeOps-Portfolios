@@ -1,10 +1,13 @@
-# Aytenew Ayele
-
 ## Currently Learning
 
 - Python Programming
-- HTML5, - CSS3- JavaScript
-- SQL & PostgreSQL- MongoDB
+- Object-Oriented Programming (OOP)
+- Git & GitHub
+- HTML5
+- CSS3
+- JavaScript
+- SQL & PostgreSQL
+- MongoDB
 - REST APIs
 - Full-Stack Web Development
 
@@ -16,3 +19,17 @@
 - Develop real-world full-stack projects.
 - Contribute to open-source projects.
 - Build a strong professional software development portfolio.
+
+---
+
+## Learning Journey
+
+- Python Fundamentals
+- Functions and Modules
+- Object-Oriented Programming
+- Git & GitHub
+- HTML, CSS & JavaScript
+- Database Development
+- Full-Stack Projects
+
+# Name: Aytenew Ayele

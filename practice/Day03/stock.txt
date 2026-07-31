@@ -1,0 +1,6 @@
+#stocks
+Paracetamol,25
+Amoxicillin,8
+Ibuprofen,15
+Vitamin C,5
+Bandage,30
