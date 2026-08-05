@@ -1,0 +1,225 @@
+/* ===========================
+   Global Reset
+=========================== */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===========================
+   CSS Variables
+=========================== */
+
+:root {
+  --background: #ffffff;
+  --card-bg: #faf7f0;
+  --text: #222222;
+  --border: #cccccc;
+  --gold: #d4a017;
+  --hover: #f3ead2;
+  --stripe: #f8f2df;
+}
+
+/* ===========================
+   Base Typography
+=========================== */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+
+  background: var(--background);
+  color: var(--text);
+
+  padding: 20px;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  list-style: none;
+  margin-top: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+/* ===========================
+   Sections
+=========================== */
+
+section {
+  margin: 40px 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+table {
+  border: #222222;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+table,
+th,
+td {
+  border: 1px solid var(--border);
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: var(--gold);
+  color: var(--background);
+}
+
+/* Zebra striping */
+tbody tr:nth-child(even) {
+  background-color: var(--stripe);
+}
+
+/* Hover effect */
+tbody tr:hover {
+  background-color: var(--hover);
+}
+/* ===========================
+   Menu Card
+=========================== */
+
+.menu-card {
+  max-width: 350px;
+
+  margin: 30px auto;
+
+  padding: 20px;
+
+  background: var(--card-bg);
+
+  border: 1px solid var(--border);
+
+  border-top: 8px solid var(--gold);
+
+  border-radius: 8px;
+
+  transition: 0.3s;
+}
+
+/* Pseudo-class */
+
+.menu-card:hover {
+  background: var(--hover);
+
+  transform: translateY(-5px);
+}
+
+/* Typography */
+
+.menu-card h3 {
+  margin-bottom: 10px;
+}
+
+.menu-card h4 {
+  margin: 15px 0 10px;
+}
+
+.menu-card p {
+  margin-bottom: 10px;
+}
+
+/* Price */
+
+.price {
+  color: var(--gold);
+
+  font-size: 1.4rem;
+
+  font-weight: bold;
+}
+
+/* Pseudo-element */
+
+.price::before {
+  content: "ETB ";
+}
+
+/* Ingredients */
+
+.ingredients {
+  list-style: none;
+}
+
+.ingredients li {
+  padding: 8px;
+}
+
+/* Zebra striping */
+
+.ingredients li:nth-child(even) {
+  background: var(--stripe);
+}
+
+/* ===========================
+   Form
+=========================== */
+
+input,
+button {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+button {
+  background: var(--gold);
+  color: var(--background);
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+}
