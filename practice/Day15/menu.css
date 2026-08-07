@@ -1,0 +1,131 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  background: #f5f5f5;
+  color: #222;
+}
+
+/* =========================
+   MENU SECTION
+========================= */
+
+.menu-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.menu-section h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+/* =========================
+   MOBILE FIRST
+   One column by default
+========================= */
+
+.menu-grid {
+  display: grid;
+
+  /* One column on mobile */
+  grid-template-columns: 1fr;
+
+  gap: 1.5rem;
+}
+
+/* =========================
+   MENU CARD
+========================= */
+
+.menu-card {
+  background: white;
+  padding: 1.5rem;
+
+  border-radius: 10px;
+  border: 1px solid #ddd;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Animation */
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.menu-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.menu-card p {
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* =========================
+   TABLET
+   768px and above = 2 columns
+========================= */
+
+@media (min-width: 768px) {
+  .menu-section {
+    padding: 3rem 2rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   DESKTOP
+   1024px and above = 3 columns
+========================= */
+
+@media (min-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================
+   HOVER ANIMATION
+========================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-card:hover {
+    transform: translateY(-6px) scale(1.02);
+
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-card {
+    transition: none;
+  }
+
+  .menu-card:hover {
+    transform: none;
+  }
+}
