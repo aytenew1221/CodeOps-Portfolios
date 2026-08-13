@@ -1,4 +1,5 @@
 // Cache DOM elements once
+// This is more efficient than querying the DOM multiple times
 const form = document.querySelector("#item-form");
 const itemNameInput = document.querySelector("#item-name");
 const itemPriceInput = document.querySelector("#item-price");
