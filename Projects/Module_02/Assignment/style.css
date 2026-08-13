@@ -1,0 +1,191 @@
+/* =========================
+   Basic Reset
+========================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 2rem;
+}
+
+/* =========================
+   Main Container
+========================= */
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.container > p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+/* =========================
+   Form
+========================= */
+
+#item-form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#item-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+}
+
+input {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: 2px solid #555;
+}
+
+/* =========================
+   Add Button
+========================= */
+
+#item-form button {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#item-form button:hover {
+  background-color: #555;
+}
+
+/* =========================
+   Validation Message
+========================= */
+
+#message {
+  min-height: 1.5rem;
+  margin-bottom: 1rem;
+  color: #c0392b;
+  font-weight: bold;
+}
+
+/* =========================
+   Shopping List
+========================= */
+
+#shopping-list {
+  list-style: none;
+  margin: 1rem 0 2rem;
+}
+
+/* This class is created by JavaScript */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fafafa;
+
+  cursor: pointer;
+}
+
+/* Hover effect */
+.item:hover {
+  background-color: #f0f0f0;
+}
+
+/* =========================
+   Bought State
+========================= */
+
+/* JavaScript adds/removes this class */
+.item.bought {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* =========================
+   Delete Button
+========================= */
+
+.delete-btn {
+  background-color: #c0392b;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
+
+  padding: 0.5rem 0.8rem;
+
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
+}
+
+/* =========================
+   Total
+========================= */
+
+#total {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  .item {
+    gap: 1rem;
+  }
+
+  .delete-btn {
+    padding: 0.4rem 0.6rem;
+  }
+}
