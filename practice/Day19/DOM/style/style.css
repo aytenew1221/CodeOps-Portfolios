@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 2rem;
+  color: #333;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Exercise 1 */
+
+.highlight {
+  color: #c0392b;
+  text-transform: uppercase;
+}
+
+/* Sections */
+
+section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+
+ul {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Exercise 3 */
+
+#button-container {
+  padding: 2rem;
+  background-color: #eee;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Exercise 4 */
+
+#item-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 300px;
+}
+
+.delete-btn {
+  background-color: #c0392b;
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
+}
+
+/* Exercise 5 */
+
+#item-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#item-input {
+  flex: 1;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
