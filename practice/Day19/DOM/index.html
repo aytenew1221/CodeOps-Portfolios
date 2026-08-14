@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Practice</title>
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+
+  <body>
+    <main class="container">
+      <h1 id="main-heading">Day 19 DOM Practice</h1>
+
+      <!-- Exercise 1 -->
+      <section>
+        <h2>1. Change Heading</h2>
+        <p id="heading-message">
+          The heading will be changed using JavaScript.
+        </p>
+      </section>
+
+      <!-- Exercise 2 -->
+      <section>
+        <h2>2. Ethiopian Cities</h2>
+        <ul id="city-list"></ul>
+      </section>
+
+      <!-- Exercise 3 -->
+      <section>
+        <h2>3. Event Bubbling</h2>
+
+        <div id="button-container">
+          <button id="click-button">Click Me</button>
+        </div>
+      </section>
+
+      <!-- Exercise 4 -->
+      <section>
+        <h2>4. Delete Items</h2>
+
+        <ul id="item-list">
+          <li>
+            Coffee
+            <button class="delete-btn">Delete</button>
+          </li>
+
+          <li>
+            Teff
+            <button class="delete-btn">Delete</button>
+          </li>
+
+          <li>
+            Berbere
+            <button class="delete-btn">Delete</button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Exercise 5 -->
+      <section>
+        <h2>5. Add Items with Form</h2>
+
+        <form id="item-form">
+          <input type="text" id="item-input" placeholder="Enter an item" />
+
+          <button type="submit">Add Item</button>
+        </form>
+
+        <ul id="form-list"></ul>
+      </section>
+    </main>
+
+    <script src="script/app.js"></script>
+  </body>
+</html>
