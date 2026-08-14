@@ -57,7 +57,6 @@ console.log("Updated customer:", updatedCustomer);
 
 // 5. Module example
 
-
 import { addVat, VAT } from "./money.js";
 
 console.log("VAT rate:", VAT);
