@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Country Facts Page using the CountriesNow API"
+    />
+
+    <title>Country Facts</title>
+
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Country Facts</h1>
+
+      <form id="country-form">
+        <label for="country-input"> Enter a country </label>
+
+        <div class="search-box">
+          <input
+            type="text"
+            id="country-input"
+            placeholder="e.g. Ethiopia"
+            value="Ethiopia"
+            required
+          />
+
+          <button type="submit">Search</button>
+        </div>
+      </form>
+
+      <section id="facts" aria-live="polite">
+        <!-- Country facts will appear here -->
+      </section>
+    </main>
+
+    <script src="script/app.js"></script>
+  </body>
+</html>
