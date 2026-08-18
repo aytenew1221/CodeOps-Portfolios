@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Birr Watch - Live Ethiopian Birr exchange-rate tracker"
+    />
+    <title>Birr Watch</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>🇪🇹 Birr Watch</h1>
+        <p>Live ETB exchange-rate tracker</p>
+      </header>
+
+      <!-- Status -->
+      <p id="status" class="status">Loading rates...</p>
+
+      <!-- Converter -->
+      <section class="card">
+        <h2>Currency Converter</h2>
+
+        <form id="convert-form">
+          <div class="form-group">
+            <label for="amount">Amount in ETB</label>
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              step="0.01"
+              value="100"
+              placeholder="Enter amount"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="currency">Convert to</label>
+            <select id="currency">
+              <option value="">Loading currencies...</option>
+            </select>
+          </div>
+
+          <button type="submit">Convert</button>
+        </form>
+
+        <p id="result" class="result"></p>
+      </section>
+
+      <!-- Watchlist -->
+      <section class="card">
+        <div class="section-header">
+          <h2>My Watchlist</h2>
+          <span id="watch-count">0</span>
+        </div>
+
+        <ul id="watchlist"></ul>
+
+        <p id="empty-message">No currencies in your watchlist.</p>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
