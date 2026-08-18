@@ -1,0 +1,192 @@
+/* RESET*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7f6;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+/* LAYOUT*/
+
+.container {
+  width: min(900px, 92%);
+  margin: 40px auto;
+}
+
+/*
+   HEADER
+ */
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #6b7280;
+}
+
+/* 
+   STATUS
+*/
+
+.status {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.status.error {
+  color: #dc2626;
+}
+
+.status.success {
+  color: #16a34a;
+}
+
+/* 
+   CARD
+ */
+
+.card {
+  background: white;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+}
+
+/* 
+   FORM
+*/
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 1rem;
+}
+
+button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 7px;
+  background: #166534;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #14532d;
+}
+
+/* 
+   RESULT
+*/
+
+.result {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* 
+   WATCHLIST
+ */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#watch-count {
+  background: #166534;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+#watchlist {
+  list-style: none;
+  margin-top: 15px;
+}
+
+.watch-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #f3f4f6;
+  border-radius: 7px;
+}
+
+.watch-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.delete-btn {
+  background: #dc2626;
+  padding: 7px 12px;
+  font-size: 0.9rem;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
+#empty-message {
+  color: #6b7280;
+  margin-top: 15px;
+}
+
+/*
+   MOBILE
+*/
+
+@media (max-width: 600px) {
+  .container {
+    margin: 20px auto;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
