@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "description": "Monthly Salary",
+    "amount": 25000,
+    "type": "income",
+    "category": "Salary"
+  },
+  {
+    "id": 2,
+    "description": "House Rent",
+    "amount": 8000,
+    "type": "expense",
+    "category": "Housing"
+  },
+  {
+    "id": 3,
+    "description": "Groceries",
+    "amount": 2500,
+    "type": "expense",
+    "category": "Food"
+  },
+  {
+    "id": 4,
+    "description": "Freelance Work",
+    "amount": 5000,
+    "type": "income",
+    "category": "Freelance"
+  }
+]
