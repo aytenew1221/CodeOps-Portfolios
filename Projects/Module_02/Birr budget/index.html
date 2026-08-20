@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Birr Budget - A simple Ethiopian Birr income and expense tracking application."
+    />
+
+    <title>Birr Budget</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+
+    <header class="site-header">
+      <div class="container header-container">
+        <!-- Brand -->
+        <a href="#dashboard" class="brand" aria-label="Birr Budget Dashboard">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/9729/9729506.png"
+            alt="Birr Budget Logo"
+            class="brand-logo"
+          />
+
+          <span class="brand-name">Birr Budget</span>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#dashboard" class="nav-link active" data-view="dashboard">
+            Dashboard
+          </a>
+
+          <a href="#income" class="nav-link" data-view="income"> Income </a>
+
+          <a href="#expenses" class="nav-link" data-view="expenses">
+            Expenses
+          </a>
+
+          <a href="#reports" class="nav-link" data-view="reports"> Reports </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MAIN-->
+
+    <main class="container">
+      <!--DASHBOARD VIEW-->
+
+      <section
+        id="dashboard"
+        class="page-view active-view"
+        aria-labelledby="dashboard-title"
+      >
+        <section class="summary">
+          <h2 id="dashboard-title">Budget Summary</h2>
+
+          <div class="summary-grid">
+            <article class="summary-card income-card">
+              <h3>Total Income</h3>
+              <p id="income-total">0.00 ETB</p>
+            </article>
+
+            <article class="summary-card expense-card">
+              <h3>Total Expenses</h3>
+              <p id="expense-total">0.00 ETB</p>
+            </article>
+
+            <article class="summary-card balance-card">
+              <h3>Balance</h3>
+              <p id="balance-total">0.00 ETB</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Add Transaction -->
+
+        <section class="transaction-form-section" aria-labelledby="form-title">
+          <h2 id="form-title">Add Transaction</h2>
+
+          <form id="transaction-form" novalidate>
+            <div class="form-group">
+              <label for="description"> Description </label>
+
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="e.g. Salary"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="amount"> Amount (ETB) </label>
+
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                placeholder="e.g. 5000"
+                min="0.01"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="type"> Type </label>
+
+              <select id="type" name="type">
+                <option value="income">Income</option>
+
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="category"> Category </label>
+
+              <input
+                type="text"
+                id="category"
+                name="category"
+                placeholder="e.g. Food"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn">Add Transaction</button>
+
+            <p id="form-error" class="error" role="alert"></p>
+          </form>
+        </section>
+
+        <!-- Dashboard Transactions -->
+
+        <section
+          class="transactions-section"
+          aria-labelledby="dashboard-transactions-title"
+        >
+          <div class="section-header">
+            <div>
+              <h2 id="dashboard-transactions-title">All Transactions</h2>
+
+              <p id="transaction-count">0 transactions</p>
+            </div>
+
+            <div class="search-box">
+              <label for="search" class="search-label"> Search </label>
+
+              <input
+                type="search"
+                id="search"
+                placeholder="Search transactions..."
+              />
+            </div>
+          </div>
+
+          <ul id="transaction-list" class="transaction-list"></ul>
+
+          <p id="empty-message" class="empty-message" hidden>
+            No transactions found.
+          </p>
+        </section>
+      </section>
+
+      <!-- INCOME VIEW-->
+
+      <section id="income" class="page-view" aria-labelledby="income-title">
+        <div class="page-heading">
+          <h2 id="income-title">Income</h2>
+
+          <p>View all your income transactions.</p>
+        </div>
+
+        <article class="report-highlight">
+          <h3>Total Income</h3>
+
+          <p id="income-view-total">0.00 ETB</p>
+        </article>
+
+        <section class="transactions-section">
+          <div class="section-header">
+            <div>
+              <h2>Income Transactions</h2>
+
+              <p id="income-count">0 transactions</p>
+            </div>
+          </div>
+
+          <ul id="income-list" class="transaction-list"></ul>
+
+          <p id="income-empty" class="empty-message" hidden>
+            No income transactions found.
+          </p>
+        </section>
+      </section>
+
+      <!-- EXPENSES VIEW -->
+
+      <section id="expenses" class="page-view" aria-labelledby="expenses-title">
+        <div class="page-heading">
+          <h2 id="expenses-title">Expenses</h2>
+
+          <p>View all your expense transactions.</p>
+        </div>
+
+        <article class="report-highlight expense-highlight">
+          <h3>Total Expenses</h3>
+
+          <p id="expense-view-total">0.00 ETB</p>
+        </article>
+
+        <section class="transactions-section">
+          <div class="section-header">
+            <div>
+              <h2>Expense Transactions</h2>
+
+              <p id="expense-count">0 transactions</p>
+            </div>
+          </div>
+
+          <ul id="expense-list" class="transaction-list"></ul>
+
+          <p id="expense-empty" class="empty-message" hidden>
+            No expense transactions found.
+          </p>
+        </section>
+      </section>
+
+      <!-- REPORTS VIEW-->
+
+      <section id="reports" class="page-view" aria-labelledby="reports-title">
+        <div class="page-heading">
+          <h2 id="reports-title">Financial Reports</h2>
+
+          <p>Overview of your income, expenses, and financial balance.</p>
+        </div>
+
+        <div class="report-grid">
+          <article class="report-card">
+            <h3>Total Income</h3>
+
+            <p id="report-income">0.00 ETB</p>
+          </article>
+
+          <article class="report-card">
+            <h3>Total Expenses</h3>
+
+            <p id="report-expense">0.00 ETB</p>
+          </article>
+
+          <article class="report-card">
+            <h3>Current Balance</h3>
+
+            <p id="report-balance">0.00 ETB</p>
+          </article>
+        </div>
+
+        <!-- Expense Percentage -->
+
+        <section class="report-section">
+          <h3>Expense Ratio</h3>
+
+          <div class="progress-container">
+            <div id="expense-progress" class="progress-bar"></div>
+          </div>
+
+          <p id="expense-ratio">0% of income spent</p>
+        </section>
+
+        <!-- Financial Status -->
+
+        <section class="report-section">
+          <h3>Financial Status</h3>
+
+          <p id="financial-status" class="financial-status">
+            No data available.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <!--FOOTER -->
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2026 Birr Budget</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
