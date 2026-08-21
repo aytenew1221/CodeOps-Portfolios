@@ -1,52 +1,50 @@
+"use strict";
+
+/* API*/
+
 const API = "https://open.er-api.com/v6/latest/ETB";
+
+/* DOM ELEMENTS*/
+
 const status = document.querySelector("#status");
-const select = document.querySelector("#currency");
 const form = document.querySelector("#convert-form");
-const amount = document.querySelector("#amount");
+const amountInput = document.querySelector("#amount");
+const currencySelect = document.querySelector("#currency");
+const convertButton = document.querySelector("#convert-button");
 const result = document.querySelector("#result");
+
 const watchlistElement = document.querySelector("#watchlist");
 const watchCount = document.querySelector("#watch-count");
 const emptyMessage = document.querySelector("#empty-message");
 
-// STATE
+/* STORAGE*/
+
+const STORAGE_KEY = "birr-watch-watchlist";
+
+/* NUMBER FORMATTERS */
+
+const etbFormatter = new Intl.NumberFormat("en-ET", {
+  style: "currency",
+  currency: "ETB",
+  maximumFractionDigits: 2,
+});
+
+const numberFormatter = new Intl.NumberFormat("en-US", {
+  maximumFractionDigits: 2,
+});
+
+/* STATE */
+
 const state = {
   base: "ETB",
   rates: {},
   watchlist: [],
   amount: 100,
   currency: "USD",
+  loading: false,
 };
 
-// LOCAL STORAGE KEY
-
-const STORAGE_KEY = "birr-watch-watchlist";
-
-// LOAD WATCHLIST
-
-function loadWatchlist() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-
-  if (!saved) {
-    return;
-  }
-
-  try {
-    const parsed = JSON.parse(saved);
-
-    if (Array.isArray(parsed)) {
-      state.watchlist = parsed;
-    }
-  } catch (error) {
-    console.error("Could not load watchlist:", error);
-  }
-}
-
-// SAVE WATCHLIST
-
-function saveWatchlist() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.watchlist));
-}
-// STATUS
+/* STATUS*/
 
 function setStatus(message, type = "") {
   status.textContent = message;
@@ -58,52 +56,121 @@ function setStatus(message, type = "") {
   }
 }
 
-// ========================================
-// FETCH RATES
-// ========================================
+/* LOCAL STORAGE */
+
+function loadWatchlist() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) {
+      state.watchlist = [];
+      return;
+    }
+
+    const parsed = JSON.parse(saved);
+
+    if (!Array.isArray(parsed)) {
+      state.watchlist = [];
+      return;
+    }
+
+    state.watchlist = parsed.filter(
+      (currency) => typeof currency === "string" && currency.length > 0,
+    );
+  } catch (error) {
+    console.error("Could not load watchlist:", error);
+
+    state.watchlist = [];
+  }
+}
+
+function saveWatchlist() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.watchlist));
+  } catch (error) {
+    console.error("Could not save watchlist:", error);
+  }
+}
+
+/* FETCH RATES */
 
 async function fetchRates() {
-  setStatus("Loading live exchange rates...");
+  state.loading = true;
+
+  setStatus("Loading live exchange rates...", "loading");
+
+  currencySelect.disabled = true;
+  convertButton.disabled = true;
 
   try {
     const response = await fetch(API);
 
     if (!response.ok) {
-      throw new Error("Failed to fetch exchange rates.");
+      throw new Error(`HTTP error: ${response.status}`);
     }
 
     const data = await response.json();
 
-    if (data.result !== "success") {
-      throw new Error("API returned an error.");
+    if (!data || data.result !== "success" || typeof data.rates !== "object") {
+      throw new Error("Invalid exchange-rate response.");
     }
 
     state.rates = data.rates;
+
+    renderCurrencies();
+    renderWatchlist();
+
+    currencySelect.disabled = false;
+    convertButton.disabled = false;
 
     setStatus(
       `Rates updated successfully. Base currency: ${state.base}`,
       "success",
     );
 
-    renderCurrencies();
-    renderWatchlist();
+    convertCurrency();
   } catch (error) {
-    console.error(error);
+    console.error("Failed to fetch rates:", error);
 
-    setStatus("Unable to load exchange rates. Please try again.", "error");
+    setStatus(
+      "Unable to load exchange rates. Please check your internet connection and try again.",
+      "error",
+    );
+
+    currencySelect.disabled = true;
+    convertButton.disabled = true;
+  } finally {
+    state.loading = false;
   }
 }
 
-// ========================================
-// RENDER CURRENCY DROPDOWN
-// ========================================
+/* RENDER CURRENCIES */
 
 function renderCurrencies() {
-  select.innerHTML = "";
-
   const currencies = Object.keys(state.rates)
     .filter((currency) => currency !== state.base)
     .sort();
+
+  currencySelect.replaceChildren();
+
+  if (currencies.length === 0) {
+    const option = document.createElement("option");
+
+    option.value = "";
+    option.textContent = "No currencies available";
+
+    currencySelect.appendChild(option);
+
+    return;
+  }
+
+  /*
+    Keep USD if it exists.
+    Otherwise select the first available currency.
+  */
+  if (!state.rates[state.currency]) {
+    state.currency = currencies.includes("USD") ? "USD" : currencies[0];
+  }
 
   currencies.forEach((currency) => {
     const option = document.createElement("option");
@@ -115,59 +182,76 @@ function renderCurrencies() {
       option.selected = true;
     }
 
-    select.appendChild(option);
+    currencySelect.appendChild(option);
   });
-
-  if (!state.rates[state.currency]) {
-    state.currency = currencies[0];
-    select.value = state.currency;
-  }
 }
 
-// ========================================
-// CONVERT CURRENCY
-// ========================================
+/* CONVERT CURRENCY*/
 
 function convertCurrency() {
-  const value = Number(amount.value);
-  const currency = select.value;
+  const value = Number(amountInput.value);
+  const currency = currencySelect.value;
 
-  // Validate amount
+  /*
+    Validate amount
+  */
   if (!Number.isFinite(value) || value <= 0) {
     result.textContent = "Please enter an amount greater than 0.";
-    return;
+
+    return false;
   }
 
-  // Check rate
+  /*
+    Make sure a currency exists
+  */
+  if (!currency) {
+    result.textContent = "Please select a currency.";
+
+    return false;
+  }
+
+  /*
+    Get exchange rate
+  */
   const rate = state.rates[currency];
 
-  if (!rate) {
+  if (typeof rate !== "number" || !Number.isFinite(rate)) {
     result.textContent = "Exchange rate is not available.";
-    return;
+
+    return false;
   }
 
+  /*
+    Update state
+  */
   state.amount = value;
   state.currency = currency;
 
+  /*
+    Calculate conversion
+  */
   const converted = value * rate;
 
+  /*
+    Format output
+  */
   result.textContent =
-    `${value.toLocaleString()} ETB = ` +
-    `${converted.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
-    })} ${currency}`;
+    `${etbFormatter.format(value)} = ` +
+    `${numberFormatter.format(converted)} ${currency}`;
+
+  return true;
 }
 
-// ========================================
-// ADD TO WATCHLIST
-// ========================================
+/*ADD TO WATCHLIST*/
 
 function addToWatchlist(currency) {
   if (!currency) {
     return;
   }
 
-  // Prevent duplicates
+  /*
+    Prevent duplicates
+  */
   if (state.watchlist.includes(currency)) {
     return;
   }
@@ -178,74 +262,140 @@ function addToWatchlist(currency) {
   renderWatchlist();
 }
 
-// ========================================
-// RENDER WATCHLIST
-// ========================================
+/* REMOVE FROM WATCHLIST */
+
+function removeFromWatchlist(currency) {
+  state.watchlist = state.watchlist.filter((item) => item !== currency);
+
+  saveWatchlist();
+  renderWatchlist();
+}
+
+/*RENDER WATCHLIST*/
 
 function renderWatchlist() {
-  watchlistElement.innerHTML = "";
+  watchlistElement.replaceChildren();
 
   watchCount.textContent = state.watchlist.length;
 
+  /*
+    Empty state
+  */
   if (state.watchlist.length === 0) {
-    emptyMessage.style.display = "block";
+    emptyMessage.hidden = false;
     return;
   }
 
-  emptyMessage.style.display = "none";
+  emptyMessage.hidden = true;
 
   state.watchlist.forEach((currency) => {
     const rate = state.rates[currency];
 
     const li = document.createElement("li");
+
     li.className = "watch-item";
 
-    li.innerHTML = `
-      <div class="watch-info">
-        <strong>${currency}</strong>
-        <span>
-          ${rate ? `1 ETB = ${rate} ${currency}` : "Rate unavailable"}
-        </span>
-      </div>
+    /*
+      Information container
+    */
 
-      <button
-        class="delete-btn"
-        data-currency="${currency}"
-        type="button"
-      >
-        Delete
-      </button>
-    `;
+    const info = document.createElement("div");
+
+    info.className = "watch-info";
+
+    /*
+      Currency name
+    */
+
+    const currencyName = document.createElement("strong");
+
+    currencyName.className = "watch-currency";
+
+    currencyName.textContent = currency;
+
+    /*
+      Exchange rate
+    */
+
+    const rateText = document.createElement("span");
+
+    rateText.className = "watch-rate";
+
+    if (typeof rate === "number" && Number.isFinite(rate)) {
+      rateText.textContent = `1 ETB = ${numberFormatter.format(rate)} ${currency}`;
+    } else {
+      rateText.textContent = "Rate unavailable";
+    }
+
+    /*
+      Delete button
+    */
+
+    const deleteButton = document.createElement("button");
+
+    deleteButton.type = "button";
+    deleteButton.className = "delete-btn";
+
+    deleteButton.dataset.currency = currency;
+
+    deleteButton.textContent = "Delete";
+
+    deleteButton.setAttribute(
+      "aria-label",
+      `Remove ${currency} from watchlist`,
+    );
+
+    /*
+      Build item
+    */
+
+    info.append(currencyName, rateText);
+
+    li.append(info, deleteButton);
 
     watchlistElement.appendChild(li);
   });
 }
 
-// ========================================
-// FORM SUBMIT
-// ========================================
+/* FORM SUBMIT */
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  convertCurrency();
+  const converted = convertCurrency();
 
-  // Add selected currency to watchlist
-  addToWatchlist(select.value);
+  /*
+      Only add to watchlist if
+      conversion was successful.
+    */
+  if (converted) {
+    addToWatchlist(currencySelect.value);
+  }
 });
 
-// ========================================
-// CURRENCY CHANGE
-// ========================================
+/* AMOUNT INPUT */
 
-select.addEventListener("change", () => {
-  state.currency = select.value;
+amountInput.addEventListener("input", () => {
+  /*
+      Don't show an error while
+      the user is typing.
+    */
+  result.textContent = "";
 });
 
-// ========================================
-// DELETE WATCHLIST ITEM
-// EVENT DELEGATION
-// ========================================
+/* CURRENCY CHANGE*/
+
+currencySelect.addEventListener("change", () => {
+  state.currency = currencySelect.value;
+
+  if (amountInput.value) {
+    convertCurrency();
+  }
+});
+
+/* 
+   WATCHLIST CLICK
+   EVENT DELEGATION */
 
 watchlistElement.addEventListener("click", (event) => {
   const button = event.target.closest(".delete-btn");
@@ -256,19 +406,19 @@ watchlistElement.addEventListener("click", (event) => {
 
   const currency = button.dataset.currency;
 
-  state.watchlist = state.watchlist.filter((item) => item !== currency);
-
-  saveWatchlist();
-  renderWatchlist();
+  removeFromWatchlist(currency);
 });
 
-// ========================================
-// START APPLICATION
-// ========================================
+/* 
+   INITIALIZE APPLICATION */
 
 function init() {
   loadWatchlist();
+  renderWatchlist();
   fetchRates();
 }
+
+/* 
+   START*/
 
 init();
