@@ -1,4 +1,6 @@
-/* RESET*/
+/* 
+   RESET
+ */
 
 * {
   box-sizing: border-box;
@@ -6,23 +8,30 @@
   padding: 0;
 }
 
+/*
+   BASE
+ */
+
 body {
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   background: #f4f7f6;
   color: #1f2937;
   line-height: 1.6;
 }
 
-/* LAYOUT*/
+/* 
+   MAIN LAYOUT
+ */
 
 .container {
   width: min(900px, 92%);
   margin: 40px auto;
 }
 
-/*
+/* 
    HEADER
- */
+*/
 
 .header {
   text-align: center;
@@ -40,11 +49,11 @@ body {
 
 /* 
    STATUS
-*/
+ */
 
 .status {
-  text-align: center;
   margin-bottom: 20px;
+  text-align: center;
   font-weight: bold;
 }
 
@@ -56,14 +65,18 @@ body {
   color: #16a34a;
 }
 
+.status.loading {
+  color: #6b7280;
+}
+
 /* 
    CARD
- */
+*/
 
 .card {
-  background: white;
-  padding: 25px;
   margin-bottom: 25px;
+  padding: 25px;
+  background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
@@ -72,12 +85,20 @@ body {
   margin-bottom: 20px;
 }
 
-/* 
+/*
    FORM
-*/
+   CSS GRID
+ */
+
+#convert-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 18px;
+  align-items: end;
+}
 
 .form-group {
-  margin-bottom: 18px;
+  min-width: 0;
 }
 
 label {
@@ -92,50 +113,85 @@ select {
   padding: 12px;
   border: 1px solid #d1d5db;
   border-radius: 7px;
+  background: #ffffff;
+  color: #1f2937;
   font-size: 1rem;
 }
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 3px solid rgba(22, 101, 52, 0.2);
+  outline-offset: 2px;
+}
+
+select:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 
+   BUTTON
+ */
 
 button {
   border: none;
   padding: 12px 18px;
   border-radius: 7px;
   background: #166534;
-  color: white;
+  color: #ffffff;
   font-size: 1rem;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background: #14532d;
 }
 
-/* 
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/*
    RESULT
 */
 
 .result {
+  min-height: 31px;
   margin-top: 20px;
   font-size: 1.3rem;
   font-weight: bold;
 }
 
 /* 
-   WATCHLIST
+   WATCHLIST HEADER
+   FLEXBOX
  */
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
 }
 
 #watch-count {
-  background: #166534;
-  color: white;
+  min-width: 32px;
   padding: 4px 10px;
   border-radius: 20px;
+  background: #166534;
+  color: #ffffff;
   font-size: 0.9rem;
+  text-align: center;
 }
+
+/*
+   WATCHLIST
+*/
 
 #watchlist {
   list-style: none;
@@ -146,47 +202,111 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  gap: 15px;
+
   margin-bottom: 10px;
+  padding: 12px;
+
   background: #f3f4f6;
   border-radius: 7px;
 }
 
 .watch-info {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 
+.watch-currency {
+  font-weight: bold;
+}
+
+.watch-rate {
+  color: #4b5563;
+  overflow-wrap: anywhere;
+}
+
+/* 
+   DELETE BUTTON
+ */
+
 .delete-btn {
-  background: #dc2626;
+  flex-shrink: 0;
   padding: 7px 12px;
+  background: #dc2626;
   font-size: 0.9rem;
 }
 
-.delete-btn:hover {
+.delete-btn:hover:not(:disabled) {
   background: #b91c1c;
 }
 
-#empty-message {
-  color: #6b7280;
+/* 
+   EMPTY MESSAGE
+ */
+
+.empty-message {
   margin-top: 15px;
+  color: #6b7280;
 }
 
-/*
-   MOBILE
-*/
+/* RESPONSIVE
+ */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .container {
-    margin: 20px auto;
+    width: min(100% - 2rem, 900px);
+    margin: 25px auto;
   }
 
+  #convert-form {
+    grid-template-columns: 1fr;
+  }
+
+  #convert-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
   .header h1 {
     font-size: 2rem;
   }
 
   .card {
     padding: 18px;
+  }
+
+  .watch-item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .watch-info {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .delete-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    width: min(100% - 1rem, 900px);
+  }
+
+  .header h1 {
+    font-size: 1.7rem;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .result {
+    font-size: 1.1rem;
   }
 }
