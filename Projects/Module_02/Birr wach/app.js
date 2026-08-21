@@ -1,16 +1,39 @@
+"use strict";
+
+/* API*/
+
 const API = "https://open.er-api.com/v6/latest/ETB";
 
-const STORAGE_KEY = "birr-watch";
+/* DOM ELEMENTS*/
 
 const status = document.querySelector("#status");
-const select = document.querySelector("#currency");
 const form = document.querySelector("#convert-form");
 const amountInput = document.querySelector("#amount");
+const currencySelect = document.querySelector("#currency");
+const convertButton = document.querySelector("#convert-button");
 const result = document.querySelector("#result");
-const watchlistList = document.querySelector("#watchlist-list");
+
+const watchlistElement = document.querySelector("#watchlist");
 const watchCount = document.querySelector("#watch-count");
 const emptyMessage = document.querySelector("#empty-message");
-const addWatchlistButton = document.querySelector("#add-watchlist");
+
+/* STORAGE*/
+
+const STORAGE_KEY = "birr-watch-watchlist";
+
+/* NUMBER FORMATTERS */
+
+const etbFormatter = new Intl.NumberFormat("en-ET", {
+  style: "currency",
+  currency: "ETB",
+  maximumFractionDigits: 2,
+});
+
+const numberFormatter = new Intl.NumberFormat("en-US", {
+  maximumFractionDigits: 2,
+});
+
+/* STATE */
 
 const state = {
   base: "ETB",
@@ -18,75 +41,136 @@ const state = {
   watchlist: [],
   amount: 100,
   currency: "USD",
-  status: "loading",
-  error: "",
+  loading: false,
 };
 
-// LocalStorage
+/* STATUS*/
 
-function save() {
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({
-      watchlist: state.watchlist,
-      currency: state.currency,
-    }),
-  );
+function setStatus(message, type = "") {
+  status.textContent = message;
+
+  status.className = "status";
+
+  if (type) {
+    status.classList.add(type);
+  }
 }
 
-function load() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
+/* LOCAL STORAGE */
 
-    if (!stored) {
+function loadWatchlist() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) {
+      state.watchlist = [];
       return;
     }
 
-    const data = JSON.parse(stored);
+    const parsed = JSON.parse(saved);
 
-    if (Array.isArray(data.watchlist)) {
-      state.watchlist = data.watchlist;
+    if (!Array.isArray(parsed)) {
+      state.watchlist = [];
+      return;
     }
 
-    if (typeof data.currency === "string") {
-      state.currency = data.currency;
-    }
+    state.watchlist = parsed.filter(
+      (currency) => typeof currency === "string" && currency.length > 0,
+    );
   } catch (error) {
+    console.error("Could not load watchlist:", error);
+
     state.watchlist = [];
   }
 }
 
-// Render
-
-function render() {
-  renderStatus();
-  renderCurrencies();
-  renderResult();
-  renderWatchlist();
+function saveWatchlist() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.watchlist));
+  } catch (error) {
+    console.error("Could not save watchlist:", error);
+  }
 }
 
-function renderStatus() {
-  status.className = "status";
+/* FETCH RATES */
 
-  if (state.status === "loading") {
-    status.textContent = "Loading exchange rates...";
-    return;
+async function fetchRates() {
+  state.loading = true;
+
+  setStatus("Loading live exchange rates...", "loading");
+
+  currencySelect.disabled = true;
+  convertButton.disabled = true;
+
+  try {
+    const response = await fetch(API);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data || data.result !== "success" || typeof data.rates !== "object") {
+      throw new Error("Invalid exchange-rate response.");
+    }
+
+    state.rates = data.rates;
+
+    renderCurrencies();
+    renderWatchlist();
+
+    currencySelect.disabled = false;
+    convertButton.disabled = false;
+
+    setStatus(
+      `Rates updated successfully. Base currency: ${state.base}`,
+      "success",
+    );
+
+    convertCurrency();
+  } catch (error) {
+    console.error("Failed to fetch rates:", error);
+
+    setStatus(
+      "Unable to load exchange rates. Please check your internet connection and try again.",
+      "error",
+    );
+
+    currencySelect.disabled = true;
+    convertButton.disabled = true;
+  } finally {
+    state.loading = false;
   }
-
-  if (state.status === "error") {
-    status.textContent = state.error;
-    status.classList.add("error");
-    return;
-  }
-
-  status.textContent = "Live exchange rates loaded.";
-  status.classList.add("success");
 }
+
+/* RENDER CURRENCIES */
 
 function renderCurrencies() {
-  select.innerHTML = "";
+  const currencies = Object.keys(state.rates)
+    .filter((currency) => currency !== state.base)
+    .sort();
 
-  const currencies = Object.keys(state.rates).sort();
+  currencySelect.replaceChildren();
+
+  if (currencies.length === 0) {
+    const option = document.createElement("option");
+
+    option.value = "";
+    option.textContent = "No currencies available";
+
+    currencySelect.appendChild(option);
+
+    return;
+  }
+
+  /*
+    Keep USD if it exists.
+    Otherwise select the first available currency.
+  */
+  if (!state.rates[state.currency]) {
+    state.currency = currencies.includes("USD") ? "USD" : currencies[0];
+  }
 
   currencies.forEach((currency) => {
     const option = document.createElement("option");
@@ -98,182 +182,243 @@ function renderCurrencies() {
       option.selected = true;
     }
 
-    select.appendChild(option);
+    currencySelect.appendChild(option);
   });
 }
 
-function renderResult() {
-  if (!state.amount || state.amount <= 0) {
-    result.textContent = "";
-    return;
-  }
+/* CONVERT CURRENCY*/
 
-  const rate = state.rates[state.currency];
-
-  if (!rate) {
-    result.textContent = "";
-    return;
-  }
-
-  const converted = state.amount * rate;
-
-  result.textContent =
-    `${state.amount.toLocaleString()} ETB = ` +
-    `${converted.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
-    })} ${state.currency}`;
-}
-
-function renderWatchlist() {
-  watchlistList.innerHTML = "";
-
-  watchCount.textContent = state.watchlist.length;
-
-  emptyMessage.hidden = state.watchlist.length !== 0;
-
-  state.watchlist.forEach((currency) => {
-    const li = document.createElement("li");
-
-    li.className = "watch-item";
-
-    li.dataset.currency = currency;
-
-    const name = document.createElement("span");
-    name.textContent = currency;
-
-    const button = document.createElement("button");
-
-    button.className = "remove-btn";
-    button.dataset.action = "remove";
-    button.textContent = "Remove";
-
-    li.appendChild(name);
-    li.appendChild(button);
-
-    watchlistList.appendChild(li);
-  });
-}
-
-// Load live rates
-
-async function loadRates() {
-  state.status = "loading";
-  state.error = "";
-
-  render();
-
-  try {
-    const response = await fetch(API);
-
-    if (!response.ok) {
-      throw new Error("Unable to load exchange rates.");
-    }
-
-    const data = await response.json();
-
-    if (!data.rates) {
-      throw new Error("Exchange rate data is unavailable.");
-    }
-
-    state.rates = data.rates;
-
-    if (!state.rates[state.currency]) {
-      state.currency = "USD";
-    }
-
-    state.status = "success";
-
-    render();
-  } catch (error) {
-    state.status = "error";
-    state.error = "Could not load exchange rates. Please try again.";
-
-    render();
-  }
-}
-
-// Convert
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
+function convertCurrency() {
   const value = Number(amountInput.value);
+  const currency = currencySelect.value;
 
+  /*
+    Validate amount
+  */
   if (!Number.isFinite(value) || value <= 0) {
     result.textContent = "Please enter an amount greater than 0.";
 
-    return;
+    return false;
   }
 
+  /*
+    Make sure a currency exists
+  */
+  if (!currency) {
+    result.textContent = "Please select a currency.";
+
+    return false;
+  }
+
+  /*
+    Get exchange rate
+  */
+  const rate = state.rates[currency];
+
+  if (typeof rate !== "number" || !Number.isFinite(rate)) {
+    result.textContent = "Exchange rate is not available.";
+
+    return false;
+  }
+
+  /*
+    Update state
+  */
   state.amount = value;
-  state.currency = select.value;
+  state.currency = currency;
 
-  render();
-});
+  /*
+    Calculate conversion
+  */
+  const converted = value * rate;
 
-// Currency change
+  /*
+    Format output
+  */
+  result.textContent =
+    `${etbFormatter.format(value)} = ` +
+    `${numberFormatter.format(converted)} ${currency}`;
 
-select.addEventListener("change", () => {
-  state.currency = select.value;
+  return true;
+}
 
-  save();
-  render();
-});
-
-// Watchlist
-
-addWatchlistButton.addEventListener("click", () => {
-  addToWatchlist(state.currency);
-});
-
-watchlistList.addEventListener("click", (event) => {
-  const button = event.target.closest('[data-action="remove"]');
-
-  if (!button) {
-    return;
-  }
-
-  const item = button.closest(".watch-item");
-
-  const currency = item.dataset.currency;
-
-  state.watchlist = state.watchlist.filter((item) => item !== currency);
-
-  save();
-  render();
-});
-
-// Add currency to watchlist
+/*ADD TO WATCHLIST*/
 
 function addToWatchlist(currency) {
   if (!currency) {
     return;
   }
 
+  /*
+    Prevent duplicates
+  */
   if (state.watchlist.includes(currency)) {
     return;
   }
 
   state.watchlist.push(currency);
 
-  save();
-  render();
+  saveWatchlist();
+  renderWatchlist();
 }
 
-// Add button
+/* REMOVE FROM WATCHLIST */
 
-select.addEventListener("dblclick", () => {
-  addToWatchlist(select.value);
+function removeFromWatchlist(currency) {
+  state.watchlist = state.watchlist.filter((item) => item !== currency);
+
+  saveWatchlist();
+  renderWatchlist();
+}
+
+/*RENDER WATCHLIST*/
+
+function renderWatchlist() {
+  watchlistElement.replaceChildren();
+
+  watchCount.textContent = state.watchlist.length;
+
+  /*
+    Empty state
+  */
+  if (state.watchlist.length === 0) {
+    emptyMessage.hidden = false;
+    return;
+  }
+
+  emptyMessage.hidden = true;
+
+  state.watchlist.forEach((currency) => {
+    const rate = state.rates[currency];
+
+    const li = document.createElement("li");
+
+    li.className = "watch-item";
+
+    /*
+      Information container
+    */
+
+    const info = document.createElement("div");
+
+    info.className = "watch-info";
+
+    /*
+      Currency name
+    */
+
+    const currencyName = document.createElement("strong");
+
+    currencyName.className = "watch-currency";
+
+    currencyName.textContent = currency;
+
+    /*
+      Exchange rate
+    */
+
+    const rateText = document.createElement("span");
+
+    rateText.className = "watch-rate";
+
+    if (typeof rate === "number" && Number.isFinite(rate)) {
+      rateText.textContent = `1 ETB = ${numberFormatter.format(rate)} ${currency}`;
+    } else {
+      rateText.textContent = "Rate unavailable";
+    }
+
+    /*
+      Delete button
+    */
+
+    const deleteButton = document.createElement("button");
+
+    deleteButton.type = "button";
+    deleteButton.className = "delete-btn";
+
+    deleteButton.dataset.currency = currency;
+
+    deleteButton.textContent = "Delete";
+
+    deleteButton.setAttribute(
+      "aria-label",
+      `Remove ${currency} from watchlist`,
+    );
+
+    /*
+      Build item
+    */
+
+    info.append(currencyName, rateText);
+
+    li.append(info, deleteButton);
+
+    watchlistElement.appendChild(li);
+  });
+}
+
+/* FORM SUBMIT */
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const converted = convertCurrency();
+
+  /*
+      Only add to watchlist if
+      conversion was successful.
+    */
+  if (converted) {
+    addToWatchlist(currencySelect.value);
+  }
 });
 
-// Initialize
+/* AMOUNT INPUT */
+
+amountInput.addEventListener("input", () => {
+  /*
+      Don't show an error while
+      the user is typing.
+    */
+  result.textContent = "";
+});
+
+/* CURRENCY CHANGE*/
+
+currencySelect.addEventListener("change", () => {
+  state.currency = currencySelect.value;
+
+  if (amountInput.value) {
+    convertCurrency();
+  }
+});
+
+/* 
+   WATCHLIST CLICK
+   EVENT DELEGATION */
+
+watchlistElement.addEventListener("click", (event) => {
+  const button = event.target.closest(".delete-btn");
+
+  if (!button) {
+    return;
+  }
+
+  const currency = button.dataset.currency;
+
+  removeFromWatchlist(currency);
+});
+
+/* 
+   INITIALIZE APPLICATION */
 
 function init() {
-  load();
-
-  render();
-
-  loadRates();
+  loadWatchlist();
+  renderWatchlist();
+  fetchRates();
 }
+
+/* 
+   START*/
 
 init();
