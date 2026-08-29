@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin-bottom: 8px;
+}
+
+.menu-section {
+  margin-bottom: 30px;
+}
+
+.category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category {
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.category.active {
+  background: #222;
+  color: white;
+}
+
+.dish-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+}
+
+.dish h3 {
+  margin-top: 0;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.spicy-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #ffe5e5;
+  border-radius: 5px;
+}
+
+.dish button,
+.delivery-section button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.order-summary {
+  background: white;
+  padding: 20px;
+  margin: 30px 0;
+  border-radius: 10px;
+}
+
+.order-summary p {
+  font-size: 1.3rem;
+}
+
+.order-summary strong {
+  margin-left: 10px;
+}
+
+.delivery-section {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.delivery-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.delivery-section input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.delivery-section button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #b00020;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+}
+
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  background: white;
+  border-radius: 10px;
+}
