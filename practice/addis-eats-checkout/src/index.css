@@ -1,0 +1,319 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: #f3f4f6;
+
+  color: #1f2937;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+/* ================================
+   APP
+================================ */
+
+.app {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.header {
+  background: #111827;
+  color: white;
+
+  text-align: center;
+
+  padding: 30px 20px;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+}
+
+.header p {
+  margin: 0;
+
+  color: #d1d5db;
+}
+
+/* ================================
+   MAIN
+================================ */
+
+main {
+  flex: 1;
+
+  padding: 40px 20px;
+}
+
+/* ================================
+   CHECKOUT
+================================ */
+
+.checkout-container {
+  width: 100%;
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  background: white;
+
+  padding: 32px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.checkout-header {
+  margin-bottom: 25px;
+}
+
+.checkout-header h2 {
+  margin: 0 0 8px;
+
+  font-size: 30px;
+}
+
+.checkout-header p {
+  margin: 0;
+
+  color: #6b7280;
+}
+
+/* ================================
+   FORM
+================================ */
+
+form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+/* ================================
+   LABEL
+================================ */
+
+label {
+  font-weight: 700;
+
+  color: #111827;
+}
+
+.required {
+  color: #b91c1c;
+
+  margin-left: 4px;
+}
+
+.optional {
+  color: #6b7280;
+
+  font-weight: 400;
+
+  margin-left: 5px;
+}
+
+/* ================================
+   INPUT
+================================ */
+
+input,
+textarea {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  background: white;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #111827;
+
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.12);
+}
+
+/* ================================
+   INVALID FIELD
+================================ */
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: #dc2626;
+}
+
+/* ================================
+   HELP
+================================ */
+
+.help-text {
+  margin: 0;
+
+  font-size: 14px;
+
+  color: #6b7280;
+}
+
+/* ================================
+   FIELD ERROR
+================================ */
+
+.field-error {
+  margin: 0;
+
+  color: #b91c1c;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* ================================
+   REQUEST ERROR
+================================ */
+
+.request-error {
+  margin-bottom: 20px;
+
+  padding: 14px;
+
+  border-radius: 8px;
+
+  background: #fef2f2;
+
+  color: #991b1b;
+
+  border: 1px solid #fecaca;
+
+  font-weight: 600;
+}
+
+/* ================================
+   SUCCESS
+================================ */
+
+.success-message {
+  margin-bottom: 20px;
+
+  padding: 14px;
+
+  border-radius: 8px;
+
+  background: #ecfdf5;
+
+  color: #065f46;
+
+  border: 1px solid #a7f3d0;
+
+  font-weight: 600;
+}
+
+/* ================================
+   BUTTON
+================================ */
+
+.submit-button {
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #111827;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.2s,
+    transform 0.1s;
+}
+
+.submit-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.submit-button:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.submit-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer {
+  padding: 20px;
+
+  text-align: center;
+
+  color: #6b7280;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+  main {
+    padding: 20px 12px;
+  }
+
+  .checkout-container {
+    padding: 22px;
+
+    border-radius: 12px;
+  }
+
+  .checkout-header h2 {
+    font-size: 26px;
+  }
+}
