@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "name": "Doro Wat",
+    "category": "Main",
+    "price": 350,
+    "description": "Spicy Ethiopian chicken stew with egg, berbere, and rich butter.",
+    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.8
+  },
+  {
+    "id": "2",
+    "name": "Shiro",
+    "category": "Main",
+    "price": 180,
+    "description": "Smooth chickpea stew seasoned with traditional Ethiopian spices.",
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.6
+  },
+  {
+    "id": "3",
+    "name": "Misir Wat",
+    "category": "Main",
+    "price": 160,
+    "description": "Red lentil stew cooked with berbere and aromatic Ethiopian spices.",
+    "image": "https://images.unsplash.com/photo-1517244683847-7456b63c5969?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.5
+  },
+  {
+    "id": "4",
+    "name": "Kitfo",
+    "category": "Main",
+    "price": 320,
+    "description": "Seasoned minced beef served with Ethiopian cottage cheese and greens.",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.7
+  },
+  {
+    "id": "5",
+    "name": "Mango Juice",
+    "category": "Drink",
+    "price": 80,
+    "description": "Fresh mango juice served chilled with a naturally sweet tropical flavor.",
+    "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.4
+  },
+  {
+    "id": "6",
+    "name": "Avocado Smoothie",
+    "category": "Drink",
+    "price": 120,
+    "description": "Creamy avocado smoothie blended with milk and a touch of honey.",
+    "image": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.7
+  },
+  {
+    "id": "7",
+    "name": "Fresh Lemonade",
+    "category": "Drink",
+    "price": 70,
+    "description": "Refreshing homemade lemonade prepared with fresh lemons and a hint of sweetness.",
+    "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.5
+  },
+  {
+    "id": "8",
+    "name": "Ethiopian Coffee",
+    "category": "Drink",
+    "price": 60,
+    "description": "Traditional Ethiopian coffee with a rich aroma and deep roasted flavor.",
+    "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.9
+  },
+  {
+    "id": "9",
+    "name": "Tiramisu",
+    "category": "Dessert",
+    "price": 150,
+    "description": "Creamy coffee-flavored Italian dessert with mascarpone and cocoa.",
+    "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.6
+  },
+  {
+    "id": "10",
+    "name": "Chocolate Cake",
+    "category": "Dessert",
+    "price": 140,
+    "description": "Rich and moist chocolate cake topped with smooth chocolate frosting.",
+    "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.8
+  },
+  {
+    "id": "11",
+    "name": "Fruit Salad",
+    "category": "Dessert",
+    "price": 100,
+    "description": "Fresh seasonal fruits served together for a light and refreshing dessert.",
+    "image": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.4
+  },
+  {
+    "id": "12",
+    "name": "Cheesecake",
+    "category": "Dessert",
+    "price": 160,
+    "description": "Creamy cheesecake with a buttery biscuit base and a smooth finish.",
+    "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=80",
+    "rating": 4.7
+  }
+]
