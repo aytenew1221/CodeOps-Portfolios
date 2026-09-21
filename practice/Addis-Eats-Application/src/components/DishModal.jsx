@@ -1,3 +1,9 @@
+/**
+ * DishModal.jsx
+ * This component displays a modal dialog with details of a selected dish.
+ * It allows users to view the dish's image, description, category, rating, and price.
+ * Users can add the dish to their cart or close the modal.
+ */
 import { useEffect, useRef } from "react";
 
 import { createPortal } from "react-dom";
