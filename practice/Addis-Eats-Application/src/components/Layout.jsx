@@ -1,3 +1,8 @@
+/**
+ * Layout.jsx
+ * This component defines the main layout of the application, including the header, navigation, main content area, and footer.
+ * It uses React Router's Outlet to render nested routes and provides navigation links for different pages.
+ */
 import { NavLink, Outlet, Link } from "react-router-dom";
 
 import { useCart } from "../context/CartContext";
