@@ -1,3 +1,7 @@
+/**
+ * Custom hook to fetch and manage the menu data.
+ * @returns {Object} An object containing the dishes, loading state, and error message.
+ */
 import { useEffect, useState } from "react";
 
 export function useMenu() {
