@@ -1,3 +1,6 @@
+/*
+  This file is part of Addis Eats Application receipt page.
+ */
 import { Link } from "react-router-dom";
 
 export default function Receipt() {
