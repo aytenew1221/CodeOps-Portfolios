@@ -1,3 +1,6 @@
+/*
+  This file is part of Addis Eats Application.
+ */
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
