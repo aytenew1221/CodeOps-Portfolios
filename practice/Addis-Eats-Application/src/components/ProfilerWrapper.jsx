@@ -1,3 +1,8 @@
+/**
+ * ProfilerWrapper.jsx
+ * This component wraps its children with React's Profiler to measure rendering performance.
+ * It logs the rendering duration of each component and keeps track of the slowest observed component.
+ */
 import { Profiler, useRef } from "react";
 
 export default function ProfilerWrapper({ children }) {
