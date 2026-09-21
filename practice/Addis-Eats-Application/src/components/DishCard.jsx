@@ -1,3 +1,9 @@
+/**
+ * DishCard.jsx
+ * This component represents a card displaying information about a dish.
+ * It includes the dish's image, name, description, category, rating, and price.
+ * Users can view more details, add the dish to their cart, or open a quick view modal.
+ */
 import { memo, useRef } from "react";
 
 import { Link } from "react-router-dom";
