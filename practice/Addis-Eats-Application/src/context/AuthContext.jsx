@@ -1,3 +1,8 @@
+/**
+ * AuthContext.jsx
+ * This file defines the authentication context for the application.
+ * It provides a way to manage user authentication state and actions.
+ */
 import { createContext, useContext, useMemo, useState } from "react";
 
 const AuthContext = createContext(null);
