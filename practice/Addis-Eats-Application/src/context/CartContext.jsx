@@ -1,3 +1,8 @@
+/**
+ * CartContext.jsx
+ * This file defines the cart context for the application.
+ * It provides a way to manage the shopping cart state and actions.
+ */
 import { createContext, useContext, useMemo, useState } from "react";
 
 const CartContext = createContext(null);
