@@ -1,3 +1,6 @@
+/*
+  This file is part of Addis Eats Application.
+ */
 import { useEffect, useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
