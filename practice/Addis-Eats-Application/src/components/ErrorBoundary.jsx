@@ -1,3 +1,8 @@
+/**
+ * ErrorBoundary.jsx
+ * This component is a React error boundary that catches JavaScript errors anywhere in its child component tree.
+ * It displays a fallback UI when an error occurs and provides a way to reset the error state.
+ */
 import { Component } from "react";
 
 export default class ErrorBoundary extends Component {
