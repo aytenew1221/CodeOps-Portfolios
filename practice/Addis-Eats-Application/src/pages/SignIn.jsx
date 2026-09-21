@@ -1,4 +1,6 @@
-//signin page
+/*
+  This file is part of Addis Eats Application sign-in page.
+ */
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
