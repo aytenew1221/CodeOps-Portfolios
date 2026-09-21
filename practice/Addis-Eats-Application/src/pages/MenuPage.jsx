@@ -1,3 +1,6 @@
+/*
+  This file is part of Addis Eats Application  menu page.
+ */
 import { useCallback, useMemo, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
