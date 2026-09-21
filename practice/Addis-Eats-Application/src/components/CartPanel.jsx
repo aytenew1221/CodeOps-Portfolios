@@ -1,4 +1,9 @@
-//resilent
+/**
+ * CartPanel.jsx
+ * This component displays the shopping cart panel, showing the items in the cart,
+ * their quantities, and the total price. It allows users to increase or decrease
+ * item quantities, remove items, clear the cart, and proceed to checkout.
+ */
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
