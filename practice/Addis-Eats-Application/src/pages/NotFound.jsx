@@ -1,3 +1,6 @@
+/*
+  This file is part of not found page for Addis Eats Application.
+ */
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
