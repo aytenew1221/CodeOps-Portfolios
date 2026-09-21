@@ -1,3 +1,6 @@
+/*
+  This file is part of Addis Eats Application.
+ */
 import { Link } from "react-router-dom";
 
 export default function Home() {
