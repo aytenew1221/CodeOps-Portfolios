@@ -1,0 +1,457 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8f5ef;
+  color: #2b2118;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  background: #3b2416;
+  color: white;
+  padding: 0;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-container {
+  max-width: 1150px;
+  margin: 0 auto;
+  min-height: 72px;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links a {
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+  min-height: calc(100vh - 145px);
+}
+
+.page-container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(59, 36, 22, 0.96),
+      rgba(59, 36, 22, 0.78),
+      rgba(59, 36, 22, 0.35)
+    ),
+    linear-gradient(135deg, #8b4513, #d4a017);
+
+  color: white;
+  border-radius: 0 0 28px 28px;
+}
+
+.hero-content {
+  max-width: 1150px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 70px 24px;
+}
+
+.hero h1 {
+  max-width: 700px;
+  margin: 0 0 20px;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+}
+
+.hero p {
+  max-width: 650px;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #f7eee5;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 9px;
+  background: #d4a017;
+  color: #2b2118;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.button.secondary {
+  background: white;
+  color: #3b2416;
+}
+
+.button.danger {
+  background: #a83232;
+  color: white;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header {
+  margin-bottom: 35px;
+}
+
+.page-header h1 {
+  margin: 0 0 10px;
+  font-size: 2.5rem;
+  color: #3b2416;
+}
+
+.page-header p {
+  margin: 0;
+  color: #6f6258;
+  font-size: 1.05rem;
+}
+
+/* =========================
+   DISH GRID
+========================= */
+
+.dish-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.dish-card {
+  background: white;
+  border: 1px solid #eadfd4;
+  border-radius: 16px;
+  padding: 24px;
+
+  box-shadow: 0 5px 18px rgba(59, 36, 22, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(59, 36, 22, 0.13);
+}
+
+.dish-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f4e4bd;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.8rem;
+  margin-bottom: 18px;
+}
+
+.dish-card h2 {
+  margin: 0 0 8px;
+  color: #3b2416;
+}
+
+.dish-category {
+  color: #9a6a19;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dish-price {
+  margin: 15px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #8b4513;
+}
+
+.dish-description {
+  color: #6f6258;
+  line-height: 1.6;
+}
+
+/* =========================
+   DISH DETAILS
+========================= */
+
+.dish-details {
+  max-width: 750px;
+  margin: 60px auto;
+  background: white;
+  padding: 45px;
+  border-radius: 20px;
+  border: 1px solid #eadfd4;
+  box-shadow: 0 8px 25px rgba(59, 36, 22, 0.08);
+}
+
+.dish-details h1 {
+  margin-top: 0;
+  font-size: 2.8rem;
+  color: #3b2416;
+}
+
+.dish-details .price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #8b4513;
+}
+
+/* =========================
+   INFO CARDS
+========================= */
+
+.info-card {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 18px;
+  border: 1px solid #eadfd4;
+  box-shadow: 0 8px 24px rgba(59, 36, 22, 0.08);
+}
+
+.info-card h1 {
+  margin-top: 0;
+  color: #3b2416;
+}
+
+.info-card p {
+  color: #6f6258;
+  line-height: 1.7;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+  max-width: 600px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 50px;
+}
+
+.spinner {
+  width: 45px;
+  height: 45px;
+  margin: 0 auto 20px;
+
+  border: 5px solid #eadfd4;
+  border-top-color: #8b4513;
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.error-box {
+  max-width: 650px;
+  margin: 100px auto;
+  padding: 40px;
+  text-align: center;
+
+  background: #fff;
+  border: 1px solid #eadfd4;
+  border-radius: 18px;
+}
+
+.error-box h1 {
+  color: #a83232;
+}
+
+.error-message {
+  color: #6f6258;
+  margin-bottom: 25px;
+}
+
+/* =========================
+   NOT FOUND
+========================= */
+
+.not-found {
+  max-width: 700px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 50px;
+}
+
+.not-found-code {
+  font-size: 6rem;
+  font-weight: 900;
+  color: #d4a017;
+  margin: 0;
+}
+
+.not-found h1 {
+  color: #3b2416;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  background: #3b2416;
+  color: #e8ddd3;
+  text-align: center;
+  padding: 25px;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+  .nav-container {
+    flex-direction: column;
+    padding: 18px 20px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero {
+    min-height: 450px;
+  }
+
+  .dish-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dish-details {
+    margin: 30px 20px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 550px) {
+  .dish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 2.7rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .page-container {
+    padding: 40px 18px;
+  }
+
+  .dish-details {
+    padding: 25px;
+  }
+
+  .nav-links {
+    gap: 3px;
+  }
+
+  .nav-links a {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
