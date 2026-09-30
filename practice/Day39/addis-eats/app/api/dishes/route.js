@@ -1,3 +1,8 @@
+/**
+ * This is a Next.js API route that handles GET requests for dishes.
+ * It filters the dishes based on the provided category query parameter.
+ * If no category is provided, it returns all dishes.
+ */
 import { dishes } from "@/lib/dishes";
 
 export const revalidate = 60;
