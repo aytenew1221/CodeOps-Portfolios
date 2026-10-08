@@ -1,0 +1,267 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* App */
+
+.app {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.header p {
+  margin: 0;
+  color: #666;
+}
+
+/* Menu */
+
+.menu-section {
+  margin-bottom: 30px;
+}
+
+.menu-section h2 {
+  margin: 0 0 20px;
+}
+
+/* Search */
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+}
+
+.search-input:focus {
+  outline: 2px solid #222;
+  outline-offset: 2px;
+}
+
+/* Categories */
+
+.category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category {
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.category:hover {
+  background: #eee;
+}
+
+.category.active {
+  background: #222;
+  color: white;
+}
+
+/* Dish list */
+
+.dish-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Card */
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+}
+
+/* Dish */
+
+.dish h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.spicy-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #ffe5e5;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.dish button,
+.delivery-section button,
+.error-box button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #222;
+  color: white;
+}
+
+.dish button:hover,
+.delivery-section button:hover,
+.error-box button:hover {
+  background: #444;
+}
+
+/* Loading */
+
+.loading {
+  padding: 30px;
+  text-align: center;
+  background: white;
+  border-radius: 10px;
+}
+
+/* Error */
+
+.error-box {
+  padding: 20px;
+  background: #ffe5e5;
+  border-radius: 10px;
+}
+
+.error {
+  color: #b00020;
+}
+
+/* Empty state */
+
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  background: white;
+  border-radius: 10px;
+}
+
+/* Order */
+
+.order-summary {
+  background: white;
+  padding: 20px;
+  margin: 30px 0;
+  border-radius: 10px;
+}
+
+.order-summary h2 {
+  margin-top: 0;
+}
+
+.order-summary p {
+  font-size: 1.3rem;
+}
+
+.order-summary strong {
+  margin-left: 10px;
+}
+
+/* Delivery */
+
+.delivery-section {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.delivery-section h2 {
+  margin-top: 0;
+}
+
+.delivery-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.delivery-section input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.delivery-section input:focus {
+  outline: 2px solid #222;
+  outline-offset: 2px;
+}
+
+.delivery-section button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Success */
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .app {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 1.7rem;
+  }
+
+  .category-bar {
+    gap: 8px;
+  }
+
+  .category {
+    padding: 7px 11px;
+  }
+
+  .delivery-section {
+    padding: 20px;
+  }
+}

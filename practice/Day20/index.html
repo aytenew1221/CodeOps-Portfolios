@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Fetch States</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+
+      #status {
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 8px;
+        background-color: #eee;
+      }
+
+      .post {
+        padding: 15px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+
+      button {
+        padding: 10px 15px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>API Loading States</h1>
+
+    <button id="load-button">Load Data</button>
+
+    <div id="status">Ready to load data.</div>
+
+    <div id="data"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

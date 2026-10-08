@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validated Signup Form</title>
+    <style>
+      /* RESET */
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /*BODY */
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f7f9;
+        color: #222;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px;
+      }
+
+      /* MAIN CONTAINER */
+
+      .container {
+        width: 100%;
+        max-width: 500px;
+
+        background: white;
+
+        padding: 30px;
+
+        border-radius: 12px;
+
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      /* HEADINGS */
+
+      h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 2rem;
+      }
+
+      h2 {
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      /*INTRO TEXT */
+
+      .intro {
+        text-align: center;
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+
+      /*FORM */
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      /* FORM GROUP */
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      /*LABEL */
+
+      label {
+        font-weight: bold;
+        font-size: 0.95rem;
+      }
+
+      /* INPUT */
+
+      input {
+        width: 100%;
+
+        padding: 12px;
+
+        border: 1px solid #ccc;
+        border-radius: 6px;
+
+        font-size: 1rem;
+
+        outline: none;
+
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      /* Input focus */
+
+      input:focus {
+        border-color: #2563eb;
+
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      }
+
+      /*BUTTON */
+
+      button {
+        width: 100%;
+
+        padding: 12px;
+
+        border: none;
+        border-radius: 6px;
+
+        background: #2563eb;
+        color: white;
+
+        font-size: 1rem;
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      /* Button hover */
+
+      button:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+      }
+
+      /* Button active */
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      /*ERROR MESSAGE */
+
+      .error {
+        min-height: 20px;
+
+        color: #dc2626;
+
+        font-size: 0.9rem;
+      }
+
+      /* SAVED SIGNUPS */
+
+      .saved-section {
+        margin-top: 30px;
+
+        padding-top: 25px;
+
+        border-top: 1px solid #ddd;
+      }
+
+      /* SIGNUP LIST */
+
+      #signup-list {
+        list-style: none;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+      }
+
+      /* Individual signup */
+
+      #signup-list li {
+        background: #f1f5f9;
+
+        padding: 12px;
+
+        border-radius: 6px;
+
+        border-left: 4px solid #2563eb;
+
+        word-break: break-word;
+      }
+
+      /* RESPONSIVE DESIGN*/
+
+      @media (max-width: 600px) {
+        body {
+          padding: 15px;
+          align-items: flex-start;
+        }
+
+        .container {
+          margin-top: 20px;
+          padding: 22px;
+        }
+
+        h1 {
+          font-size: 1.7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Signup Form</h1>
+
+      <form id="signup-form">
+        <div>
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+          />
+        </div>
+
+        <div>
+          <label for="phone">Ethiopian Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="0912345678 or +251912345678"
+          />
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+        <p id="error" role="alert"></p>
+      </form>
+
+      <section>
+        <h2>Saved Signups</h2>
+        <ul id="signup-list"></ul>
+      </section>
+    </main>
+
+    <script src="script/app.js"></script>
+  </body>
+</html>

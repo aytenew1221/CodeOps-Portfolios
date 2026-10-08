@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Doro Wat",
+    "price": 350,
+    "category": "Ethiopian",
+    "spicy": true
+  },
+  {
+    "id": 2,
+    "name": "Shiro",
+    "price": 180,
+    "category": "Vegetarian",
+    "spicy": true
+  },
+  {
+    "id": 3,
+    "name": "Misir Wat",
+    "price": 160,
+    "category": "Vegetarian",
+    "spicy": true
+  },
+  {
+    "id": 4,
+    "name": "Kitfo",
+    "price": 320,
+    "category": "Ethiopian",
+    "spicy": true
+  },
+  {
+    "id": 5,
+    "name": "Mango Juice",
+    "price": 80,
+    "category": "Drinks",
+    "spicy": false
+  },
+  {
+    "id": 6,
+    "name": "Tiramisu",
+    "price": 150,
+    "category": "Desserts",
+    "spicy": false
+  }
+]

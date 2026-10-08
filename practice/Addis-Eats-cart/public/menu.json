@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Doro Wat",
+    "price": 350,
+    "category": "Main Dish",
+    "description": "Traditional Ethiopian spicy chicken stew served with injera.",
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+    "spicy": true
+  },
+  {
+    "id": 2,
+    "name": "Shiro",
+    "price": 180,
+    "category": "Main Dish",
+    "description": "A smooth Ethiopian chickpea stew served with fresh injera.",
+    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+    "spicy": false
+  },
+  {
+    "id": 3,
+    "name": "Misir Wat",
+    "price": 160,
+    "category": "Main Dish",
+    "description": "Red lentils slowly cooked with Ethiopian spices.",
+    "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80",
+    "spicy": true
+  },
+  {
+    "id": 4,
+    "name": "Kitfo",
+    "price": 320,
+    "category": "Main Dish",
+    "description": "Traditional Ethiopian minced beef seasoned with mitmita.",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+    "spicy": true
+  },
+  {
+    "id": 5,
+    "name": "Tibs",
+    "price": 300,
+    "category": "Main Dish",
+    "description": "Tender beef sautéed with onions, peppers and Ethiopian spices.",
+    "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+    "spicy": false
+  },
+  {
+    "id": 6,
+    "name": "Mango Juice",
+    "price": 80,
+    "category": "Drink",
+    "description": "Fresh and refreshing mango juice.",
+    "image": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=800&q=80",
+    "spicy": false
+  },
+  {
+    "id": 7,
+    "name": "Coffee",
+    "price": 60,
+    "category": "Drink",
+    "description": "Traditional Ethiopian coffee.",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+    "spicy": false
+  },
+  {
+    "id": 8,
+    "name": "Tiramisu",
+    "price": 150,
+    "category": "Dessert",
+    "description": "A soft coffee-flavoured dessert.",
+    "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80",
+    "spicy": false
+  }
+]

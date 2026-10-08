@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>Habesha Eatery | Authentic Ethiopian Restaurant</title>
+
+    <meta
+      name="description"
+      content="Reserve your table at Habesha Eatery. Enjoy authentic Ethiopian cuisine, browse our menu, and find our location in Addis Ababa."
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ================= HEADER ================= -->
+    <header>
+      <h1>Habesha Eatery</h1>
+
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#reservation">Reservation</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#location">Location</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ================= MAIN ================= -->
+    <main>
+      <!-- Hero Section -->
+      <section id="hero">
+        <h2>Experience Authentic Ethiopian Cuisine</h2>
+
+        <img
+          src="images/habesha-foods.png"
+          alt="Traditional Ethiopian meal with injera, doro wat, shiro, and fresh vegetables served on a large platter."
+          width="800"
+          loading="lazy"
+        />
+
+        <p>
+          Enjoy freshly prepared Ethiopian dishes in a warm and welcoming
+          atmosphere.
+        </p>
+      </section>
+
+      <!-- Reservation Section -->
+      <section id="reservation">
+        <h2>Reserve a Table</h2>
+
+        <form action="#" method="post">
+          <p>
+            <label for="fullname">Full Name</label><br />
+            <input
+              type="text"
+              id="fullname"
+              name="fullname"
+              minlength="3"
+              required
+            />
+          </p>
+
+          <p>
+            <label for="phone">Phone Number</label><br />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              pattern="09[0-9]{8}"
+              placeholder="0912345678"
+              required
+            />
+          </p>
+
+          <p>
+            <label for="guests">Number of Guests</label><br />
+            <input
+              type="number"
+              id="guests"
+              name="guests"
+              min="1"
+              max="20"
+              required
+            />
+          </p>
+
+          <p>
+            <label for="date">Reservation Date</label><br />
+            <input type="date" id="date" name="date" required />
+          </p>
+
+          <button type="submit">Book Now</button>
+        </form>
+      </section>
+
+      <!-- Menu Section -->
+      <section id="menu">
+        <h2>Our Menu</h2>
+
+        <table>
+          <caption>
+            Habesha Eatery Traditional Menu
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Dish</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price (ETB)</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Doro Wat</td>
+              <td>Traditional spicy chicken stew served with injera.</td>
+              <td>450</td>
+            </tr>
+
+            <tr>
+              <td>Shiro</td>
+              <td>Chickpea stew with Ethiopian spices.</td>
+              <td>250</td>
+            </tr>
+
+            <tr>
+              <td>Tibs</td>
+              <td>Grilled beef with onions and peppers.</td>
+              <td>480</td>
+            </tr>
+
+            <tr>
+              <td>Firfir</td>
+              <td>Shredded injera cooked with spicy berbere sauce.</td>
+              <td>220</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Menu Card -->
+        <div class="menu-card">
+          <h3>Doro Wat</h3>
+
+          <p>Ethiopia's famous spicy chicken stew served with fresh injera.</p>
+
+          <p class="price">450</p>
+
+          <h4>Ingredients</h4>
+
+          <ul class="ingredients">
+            <li>Chicken</li>
+            <li>Berbere Spice</li>
+            <li>Boiled Egg</li>
+            <li>Onion</li>
+            <li>Garlic</li>
+            <li>Injera</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Featured Dish -->
+      <figure>
+        <img
+          src="images/habesha-food.png"
+          alt="A traditional Ethiopian platter with injera, doro wat, shiro, tibs, vegetables, and sauces."
+          width="800"
+          height="500"
+          loading="lazy"
+        />
+
+        <figcaption>
+          A traditional Ethiopian platter served with fresh injera.
+        </figcaption>
+      </figure>
+
+      <!-- Location Section -->
+      <section id="location">
+        <h2>Find Us</h2>
+
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d246.3034212785156!2d38.794797220150514!3d8.985511360393128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sbole%20airport%20image!5e0!3m2!1sen!2set!4v1785863703138!5m2!1sen!2set"
+          width="600"
+          height="450"
+          style="border: 0"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        >
+        </iframe>
+      </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+      <h2>Contact Us</h2>
+
+      <address>
+        Habesha Eatery<br />
+        Bole, Addis Ababa, Ethiopia
+      </address>
+
+      <p>
+        <strong>Opening Hours:</strong><br />
+        Monday – Sunday<br />
+        8:00 AM – 10:00 PM
+      </p>
+
+      <p>&copy; 2026 Habesha Eatery. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
