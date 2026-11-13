@@ -145,7 +145,7 @@ This project is developed for educational and portfolio purposes.
 
 ### 2. All Events
 
-![All Events](screenshots/02-all-events.png)
+![All Events](screenshots/all-events.png)
 
 ### 3. Event Details
 
