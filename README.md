@@ -1,99 +1,182 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Campus Events API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A RESTful backend API for managing campus events and their associated sessions. Built with **NestJS**, **TypeScript**, and **Node.js**, following a modular architecture.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Project Overview
 
-## Description
+The Campus Events API provides backend functionality for managing campus events and their sessions. It allows clients to retrieve event information, manage event records, and access sessions associated with individual events.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Technologies Used
 
-## Project setup
+- **Node.js** – JavaScript runtime environment
+- **NestJS** – Backend application framework
+- **TypeScript** – Strongly typed programming language
+- **REST API** – HTTP-based API architecture
+- **npm** – Package management
+- **Jest** – Unit and end-to-end testing
 
-```bash
-$ npm install
+## Features
+
+- Event management
+- Event session management
+- RESTful API endpoints
+- Create, read, update, and delete event operations
+- Retrieve sessions belonging to a specific event
+- DTO-based request structure
+- Modular and maintainable backend architecture
+- Unit and end-to-end tests
+
+## Project Structure
+
+```text
+campus-events-api/
+│
+├── src/
+│   ├── events/
+│   │   ├── dto/
+│   │   │   ├── create-event.dto.ts
+│   │   │   ├── update-event.dto.ts
+│   │   │   └── find-events-query.dto.ts
+│   │   │
+│   │   ├── event.interface.ts
+│   │   ├── events.controller.ts
+│   │   ├── events.data.ts
+│   │   ├── events.module.ts
+│   │   ├── events.service.ts
+│   │   ├── events.controller.spec.ts
+│   │   └── events.service.spec.ts
+│   │
+│   ├── app.controller.ts
+│   ├── app.controller.spec.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts
+│
+├── test/
+│   ├── app.e2e-spec.ts
+│   └── jest-e2e.json
+│
+├── .gitignore
+├── .eslintrc.js
+├── .prettierrc
+├── nest-cli.json
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└── README.md
 ```
 
-## Compile and run the project
+## Getting Started
+
+### 1. Clone the repository
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/aytenew1221/CodeOps-Portfolios.git
 ```
 
-## Run tests
+### 2. Navigate to the backend project
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd CodeOps-Portfolios/practice/campus-events-api
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 3. Install dependencies
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 4. Start the development server
 
-## Resources
+```bash
+npm run start:dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+The API runs at:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```text
+http://localhost:3000
+```
 
-## Support
+## API Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Base URL:
 
-## Stay in touch
+```text
+http://localhost:3000/api
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Events
+
+| Method | Endpoint      | Description       |
+| ------ | ------------- | ----------------- |
+| GET    | `/events`     | Retrieve events   |
+| GET    | `/events/:id` | Retrieve an event |
+| POST   | `/events`     | Create an event   |
+| PATCH  | `/events/:id` | Update an event   |
+| DELETE | `/events/:id` | Delete an event   |
+
+### Event Sessions
+
+| Method | Endpoint                    | Description                    |
+| ------ | --------------------------- | ------------------------------ |
+| GET    | `/events/:eventId/sessions` | Retrieve sessions for an event |
+
+Example request:
+
+```http
+GET /api/events/evt-101/sessions
+```
+
+## Running Tests
+
+Run unit tests:
+
+```bash
+npm run test
+```
+
+Run end-to-end tests:
+
+```bash
+npm run test:e2e
+```
+
+Run test coverage:
+
+```bash
+npm run test:cov
+```
+
+## Development Branch
+
+This project is maintained in the `backend` branch of the CodeOps-Portfolios repository.
+
+```bash
+git checkout backend
+```
+
+## Future Improvements
+
+- Database integration with PostgreSQL
+- User authentication and authorization
+- Event registration and booking
+- Session registration
+- Pagination and advanced filtering
+- API documentation using Swagger
+- Improved error handling and validation
+
+## Author
+
+**Aytenew Ayele**
+
+- GitHub: [@aytenew1221](https://github.com/aytenew1221)
+- Repository: [CodeOps-Portfolios](https://github.com/aytenew1221/CodeOps-Portfolios)
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is developed for educational and portfolio purposes.
+
+---
+
+**Campus Events API – Building better campus event management solutions.**
