@@ -12,7 +12,6 @@ export class FindEventsQueryDto {
     @IsOptional()
     @IsString()
     isPublished?: string;
-
     @IsOptional()
     @IsString()
     sortBy?: string;
