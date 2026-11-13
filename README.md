@@ -26,46 +26,6 @@ The Campus Events API provides backend functionality for managing campus events 
 - Modular and maintainable backend architecture
 - Unit and end-to-end tests
 
-## Project Structure
-
-```text
-campus-events-api/
-│
-├── src/
-│   ├── events/
-│   │   ├── dto/
-│   │   │   ├── create-event.dto.ts
-│   │   │   ├── update-event.dto.ts
-│   │   │   └── find-events-query.dto.ts
-│   │   │
-│   │   ├── event.interface.ts
-│   │   ├── events.controller.ts
-│   │   ├── events.data.ts
-│   │   ├── events.module.ts
-│   │   ├── events.service.ts
-│   │   ├── events.controller.spec.ts
-│   │   └── events.service.spec.ts
-│   │
-│   ├── app.controller.ts
-│   ├── app.controller.spec.ts
-│   ├── app.module.ts
-│   ├── app.service.ts
-│   └── main.ts
-│
-├── test/
-│   ├── app.e2e-spec.ts
-│   └── jest-e2e.json
-│
-├── .gitignore
-├── .eslintrc.js
-├── .prettierrc
-├── nest-cli.json
-├── package.json
-├── package-lock.json
-├── tsconfig.json
-└── README.md
-```
-
 ## Getting Started
 
 ### 1. Clone the repository
@@ -177,6 +137,24 @@ git checkout backend
 
 This project is developed for educational and portfolio purposes.
 
----
+## API Screenshots
 
-**Campus Events API – Building better campus event management solutions.**
+### 1. API Welcome Endpoint
+
+![API Welcome](screenshots/01-api-home.png)
+
+### 2. All Events
+
+![All Events](screenshots/02-all-events.png)
+
+### 3. Event Details
+
+![Event Details](screenshots/03-event-details.png)
+
+### 4. Event Sessions
+
+![Event Sessions](screenshots/04-event-sessions.png)
+
+### 5. Event Filtering
+
+![Event Filtering](screenshots/05-filter-events.png)
