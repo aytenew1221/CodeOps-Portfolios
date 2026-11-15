@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -239,12 +239,16 @@ function App() {
         )}
 
         <section className="statistics">
-          <StatCard label="Total Events" value={events.length} icon="â–¦" />
-          <StatCard label="Published Events" value={publishedCount} icon="âœ“" />
+          <StatCard label="Total Events" value={events.length} icon="#" />
+          <StatCard
+            label="Published Events"
+            value={publishedCount}
+            icon="*"
+          />
           <StatCard
             label="Unpublished Events"
             value={unpublishedCount}
-            icon="â—·"
+            icon="*"
           />
         </section>
 
@@ -392,7 +396,6 @@ function App() {
                     <strong>{session.title}</strong>
                     <span>{session.room}</span>
                     <small>
-                      {new Date(session.startsAt).toLocaleTimeString()} â€“{" "}
                       {new Date(session.endsAt).toLocaleTimeString()}
                     </small>
                   </article>
@@ -485,9 +488,8 @@ function App() {
                   <p className="event-description">{event.description}</p>
 
                   <div className="event-meta">
-                    <span>âŒ– {event.location}</span>
-                    <span>
-                      â—· {new Date(event.eventDate).toLocaleDateString()}
+                    <span>Location: {event.location}</span>
+                    <span>Date: {new Date(event.eventDate).toLocaleDateString()}
                     </span>
                   </div>
 
@@ -495,7 +497,7 @@ function App() {
                     className="view-button"
                     onClick={() => openEvent(event)}
                   >
-                    View details â†’
+                    View details {"->"}
                   </button>
                 </article>
               ))}
@@ -525,4 +527,3 @@ function StatCard({ label, value, icon }) {
 }
 
 export default App;
-
