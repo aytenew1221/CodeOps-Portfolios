@@ -2,6 +2,7 @@
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 import { describe, it, expect, beforeEach } from '@jest/globals';
+
 describe('EventsController', () => {
   let controller: EventsController;
 

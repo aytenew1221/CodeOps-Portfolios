@@ -1,32 +1,58 @@
-# Campus Events API
+﻿# Campus Events Management API
 
-A RESTful backend API for managing campus events and their associated sessions. Built with **NestJS**, **TypeScript**, and **Node.js**, following a modular architecture.
+A RESTful backend for managing campus events and their sessions. Built with **NestJS, TypeScript, and Node.js**.
 
 ## Project Overview
 
-The Campus Events API provides backend functionality for managing campus events and their sessions. It allows clients to retrieve event information, manage event records, and access sessions associated with individual events.
+The Campus Events Management API allows users to create, view, update, delete, and filter campus events. It also provides endpoints for retrieving event sessions.
 
-## Technologies Used
-
-- **Node.js** – JavaScript runtime environment
-- **NestJS** – Backend application framework
-- **TypeScript** – Strongly typed programming language
-- **REST API** – HTTP-based API architecture
-- **npm** – Package management
-- **Jest** – Unit and end-to-end testing
+**Storage:** Events and sessions are stored in a local JSON file. This project uses JSON file storage as required by the instructor; a database is not required.
 
 ## Features
 
-- Event management
-- Event session management
-- RESTful API endpoints
-- Create, read, update, and delete event operations
-- Retrieve sessions belonging to a specific event
-- DTO-based request structure
-- Modular and maintainable backend architecture
-- Unit and end-to-end tests
+- Create, read, update, and delete events
+- Retrieve individual event details
+- Retrieve sessions belonging to an event
+- Filter events by category, location, and publication status
+- Sort and paginate event results
+- Validate incoming request data using DTOs
+- Organize code using NestJS modules, controllers, and services
+- Persist event and session data in a JSON file
+- Automated tests using Jest
 
-## Getting Started
+## Technologies
+
+- Node.js
+- NestJS
+- TypeScript
+- JSON file storage
+- Jest
+
+## Project Structure
+
+```text
+campus-events-api/
+â”œâ”€â”€ data/
+â”‚   â””â”€â”€ events.json
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ events/
+â”‚   â”‚   â”œâ”€â”€ dto/
+â”‚   â”‚   â”œâ”€â”€ events.controller.ts
+â”‚   â”‚   â”œâ”€â”€ events.module.ts
+â”‚   â”‚   â”œâ”€â”€ events.service.ts
+â”‚   â”‚   â””â”€â”€ events.service.spec.ts
+â”‚   â”œâ”€â”€ app.controller.ts
+â”‚   â”œâ”€â”€ app.module.ts
+â”‚   â””â”€â”€ main.ts
+â”œâ”€â”€ test/
+â”œâ”€â”€ .env
+â”œâ”€â”€ package.json
+â””â”€â”€ README.md
+```
+
+The `data/events.json` file stores the event and session records. The application reads and updates this file when API operations are performed.
+
+## Installation and Setup
 
 ### 1. Clone the repository
 
@@ -46,115 +72,118 @@ cd CodeOps-Portfolios/practice/campus-events-api
 npm install
 ```
 
-### 4. Start the development server
+### 4. Configure the environment
+
+Create a `.env` file in the backend project root:
+
+```env
+PORT=3000
+```
+
+### 5. Start the development server
 
 ```bash
 npm run start:dev
 ```
 
-The API runs at:
+The API will run at:
 
-```text
-http://localhost:3000
-```
+`http://localhost:3000/api`
+
+No database installation or database connection is required for the JSON-based event storage.
 
 ## API Endpoints
 
-Base URL:
+All endpoints use the `/api` prefix.
 
-```text
-http://localhost:3000/api
-```
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/events` | Retrieve events |
+| GET | `/api/events/:id` | Retrieve one event |
+| POST | `/api/events` | Create an event |
+| PUT | `/api/events/:id` | Update an event |
+| DELETE | `/api/events/:id` | Delete an event |
+| GET | `/api/events/:id/sessions` | Retrieve sessions for an event |
+| GET | `/api/events/:id/sessions/:sessionId` | Retrieve one session |
 
-### Events
+## Filtering and Pagination
 
-| Method | Endpoint      | Description       |
-| ------ | ------------- | ----------------- |
-| GET    | `/events`     | Retrieve events   |
-| GET    | `/events/:id` | Retrieve an event |
-| POST   | `/events`     | Create an event   |
-| PATCH  | `/events/:id` | Update an event   |
-| DELETE | `/events/:id` | Delete an event   |
+The events endpoint supports query parameters such as:
 
-### Event Sessions
+- `category` â€” filter by event category
+- `location` â€” filter by event location
+- `isPublished` â€” filter by publication status (`true` or `false`)
+- `sortBy` â€” choose the field used for sorting
+- `order` â€” sorting direction
+- `page` â€” page number
+- `limit` â€” number of results per page
 
-| Method | Endpoint                    | Description                    |
-| ------ | --------------------------- | ------------------------------ |
-| GET    | `/events/:eventId/sessions` | Retrieve sessions for an event |
-
-Example request:
+Example requests:
 
 ```http
-GET /api/events/evt-101/sessions
+GET /api/events?category=technology
+GET /api/events?location=Main%20Hall
+GET /api/events?isPublished=false
+GET /api/events?page=1&limit=10
 ```
+
+## Frontend Integration
+
+The React frontend connects to this backend using the API base URL.
+
+In the frontend project's `.env` file:
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+Start the backend and frontend in separate terminals. The frontend sends HTTP requests to the NestJS API, and the backend reads or updates the JSON data file.
 
 ## Running Tests
 
-Run unit tests:
+Run the automated tests:
 
 ```bash
-npm run test
+npm test -- --runInBand
 ```
 
-Run end-to-end tests:
+Run TypeScript type checking:
 
 ```bash
-npm run test:e2e
+npx tsc --noEmit
 ```
 
-Run test coverage:
+Build the backend:
 
 ```bash
-npm run test:cov
+npm run build
 ```
 
-## Development Branch
+## Screenshots
 
-This project is maintained in the `backend` branch of the CodeOps-Portfolios repository.
+The following screenshots demonstrate the API and its functionality:
 
-```bash
-git checkout backend
-```
+1. API home â€” `screenshots/01-api-home.png`
+2. All events â€” `screenshots/02-all-events.png`
+3. Event details â€” `screenshots/03-event-details.png`
+4. Event sessions â€” `screenshots/04-event-sessions.png`
+5. Event filtering â€” `screenshots/05-filter-events.png`
 
 ## Future Improvements
 
-- Database integration with PostgreSQL
 - User authentication and authorization
 - Event registration and booking
-- Session registration
-- Pagination and advanced filtering
-- API documentation using Swagger
-- Improved error handling and validation
+- Improved event management and reporting
+- Additional validation and error handling
 
 ## Author
 
 **Aytenew Ayele**
 
-- GitHub: [@aytenew1221](https://github.com/aytenew1221)
-- Repository: [CodeOps-Portfolios](https://github.com/aytenew1221/CodeOps-Portfolios)
+GitHub: [aytenew1221](https://github.com/aytenew1221)
 
-## License
+Repository: [CodeOps-Portfolios](https://github.com/aytenew1221/CodeOps-Portfolios)
 
-This project is developed for educational and portfolio purposes.
+---
 
-## API Screenshots
-
-### 1. API Welcome Endpoint
-
-![API Welcome](screenshots/01-api-home.png)
-
-### 2. All Events
-
-![All Events](screenshots/all-events.png)
-
-### 3. Event Details
-
-![Event Details](screenshots/03-event-details.png)
-
-### 4. Event Sessions
-
-![Event Sessions](screenshots/04-event-sessions.png)
-
-### 5. Event Filtering
-
-![Event Filtering](screenshots/05-filter-events.png)
+**Note:** This project uses JSON file storage for event and session data, in accordance with the project requirements. It does not require PostgreSQL or another database to run.
