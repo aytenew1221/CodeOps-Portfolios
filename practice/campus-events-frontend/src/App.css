@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #17243a;
+  color: purple;
   text-decoration: none;
 }
 
@@ -103,7 +103,7 @@
 .primary-button {
   border: none;
   border-radius: 8px;
-  background: #176b52;
+  background: brown;
   color: white;
   padding: 13px 19px;
   font-weight: 700;
