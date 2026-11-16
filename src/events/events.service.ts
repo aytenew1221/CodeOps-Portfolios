@@ -24,14 +24,11 @@ export class EventsService {
   private async readData(): Promise<EventsFile> {
     try {
       const content = await readFile(this.filePath, 'utf8');
-
-      // Remove a possible UTF-8 BOM created by Windows PowerShell.
       const cleanContent = content.replace(/^\uFEFF/, '');
 
       return JSON.parse(cleanContent) as EventsFile;
     } catch (error) {
       console.error('Could not read events.json:', error);
-
       throw new InternalServerErrorException('Could not read event data');
     }
   }
@@ -45,14 +42,12 @@ export class EventsService {
       );
     } catch (error) {
       console.error('Could not save events.json:', error);
-
       throw new InternalServerErrorException('Could not save event data');
     }
   }
 
   async create(dto: CreateEventDto): Promise<Event> {
     const data = await this.readData();
-
     const eventDate = new Date(dto.eventDate);
 
     if (Number.isNaN(eventDate.getTime())) {
@@ -70,20 +65,25 @@ export class EventsService {
     };
 
     data.events.push(event);
-
     await this.writeData(data);
 
     return event;
   }
 
+  // Public listing: unpublished events are never returned.
   async findAll(query: FindEventsQueryDto) {
-    if (
-      query.isPublished !== undefined &&
-      !['true', 'false'].includes(query.isPublished)
-    ) {
-      throw new BadRequestException('isPublished must be true or false');
-    }
+    return this.filterEvents(query, true);
+  }
 
+  // Administrative listing: ADMIN and STAFF can inspect all events.
+  async findAllForStaff(query: FindEventsQueryDto) {
+    return this.filterEvents(query, false);
+  }
+
+  private async filterEvents(
+    query: FindEventsQueryDto,
+    publishedOnly: boolean,
+  ) {
     const sortBy = query.sortBy ?? 'eventDate';
     const order = query.order ?? 'asc';
 
@@ -102,16 +102,20 @@ export class EventsService {
       !Number.isInteger(page) ||
       page < 1 ||
       !Number.isInteger(limit) ||
-      limit < 1
+      limit < 1 ||
+      limit > 100
     ) {
-      throw new BadRequestException('Page and limit must be positive integers');
+      throw new BadRequestException(
+        'Page must be positive and limit must be between 1 and 100',
+      );
     }
 
     const data = await this.readData();
 
     let filtered = data.events.filter((event) => {
-      const publishedMatches =
-        query.isPublished !== undefined
+      const publishedMatches = publishedOnly
+        ? event.isPublished === true
+        : query.isPublished !== undefined
           ? event.isPublished === (query.isPublished === 'true')
           : true;
 
@@ -127,14 +131,10 @@ export class EventsService {
     });
 
     filtered.sort((a, b) => {
-      let comparison: number;
-
-      if (sortBy === 'title') {
-        comparison = a.title.localeCompare(b.title);
-      } else {
-        comparison =
-          new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime();
-      }
+      const comparison =
+        sortBy === 'title'
+          ? a.title.localeCompare(b.title)
+          : new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime();
 
       return order === 'asc' ? comparison : -comparison;
     });
@@ -157,7 +157,11 @@ export class EventsService {
     const now = Date.now();
 
     return data.events
-      .filter((event) => new Date(event.eventDate).getTime() >= now)
+      .filter(
+        (event) =>
+          event.isPublished === true &&
+          new Date(event.eventDate).getTime() >= now,
+      )
       .sort(
         (a, b) =>
           new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime(),
@@ -166,7 +170,6 @@ export class EventsService {
 
   async findOne(id: string): Promise<Event> {
     const data = await this.readData();
-
     const event = data.events.find((item) => item.id === id);
 
     if (!event) {
@@ -178,7 +181,6 @@ export class EventsService {
 
   async remove(id: string): Promise<Event> {
     const data = await this.readData();
-
     const index = data.events.findIndex((event) => event.id === id);
 
     if (index === -1) {
@@ -187,7 +189,6 @@ export class EventsService {
 
     const [deletedEvent] = data.events.splice(index, 1);
 
-    // Remove sessions belonging to the deleted event.
     data.sessions = data.sessions.filter((session) => session.eventId !== id);
 
     await this.writeData(data);
@@ -197,7 +198,6 @@ export class EventsService {
 
   async update(id: string, dto: UpdateEventDto): Promise<Event> {
     const data = await this.readData();
-
     const index = data.events.findIndex((event) => event.id === id);
 
     if (index === -1) {
@@ -205,7 +205,6 @@ export class EventsService {
     }
 
     const existingEvent = data.events[index];
-
     let eventDate = existingEvent.eventDate;
 
     if (dto.eventDate !== undefined) {
@@ -225,7 +224,6 @@ export class EventsService {
     };
 
     data.events[index] = updatedEvent;
-
     await this.writeData(data);
 
     return updatedEvent;
@@ -233,7 +231,6 @@ export class EventsService {
 
   async findSessions(eventId: string): Promise<EventSession[]> {
     await this.findOne(eventId);
-
     const data = await this.readData();
 
     return data.sessions
@@ -246,7 +243,6 @@ export class EventsService {
 
   async findSession(eventId: string, sessionId: string): Promise<EventSession> {
     await this.findOne(eventId);
-
     const data = await this.readData();
 
     const session = data.sessions.find(

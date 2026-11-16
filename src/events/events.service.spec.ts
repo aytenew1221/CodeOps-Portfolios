@@ -1,3 +1,4 @@
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -68,15 +69,23 @@ describe('EventsService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return all events when no publication filter is provided', async () => {
-    const result = await service.findAll({});
+  it('should return all events for staff when no publication filter is provided', async () => {
+    const result = await service.findAllForStaff({});
 
     expect(result.total).toBe(2);
     expect(result.items).toHaveLength(2);
   });
 
-  it('should filter events by category', async () => {
-    const result = await service.findAll({
+  it('should return only published events in the public event list', async () => {
+    const result = await service.findAll({});
+
+    expect(result.total).toBe(1);
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].isPublished).toBe(true);
+  });
+
+  it('should filter staff events by category', async () => {
+    const result = await service.findAllForStaff({
       category: 'science',
     });
 
@@ -84,8 +93,8 @@ describe('EventsService', () => {
     expect(result.items[0].title).toBe('Science Exhibition');
   });
 
-  it('should return only unpublished events when requested', async () => {
-    const result = await service.findAll({
+  it('should return only unpublished events when requested by staff', async () => {
+    const result = await service.findAllForStaff({
       isPublished: 'false',
     });
 
