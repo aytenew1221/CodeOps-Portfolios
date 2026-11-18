@@ -28,28 +28,6 @@ The Campus Events Management API allows users to create, view, update, delete, a
 - JSON file storage
 - Jest
 
-## Project Structure
-
-```text
-campus-events-api/
-â”œâ”€â”€ data/
-â”‚   â””â”€â”€ events.json
-â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ events/
-â”‚   â”‚   â”œâ”€â”€ dto/
-â”‚   â”‚   â”œâ”€â”€ events.controller.ts
-â”‚   â”‚   â”œâ”€â”€ events.module.ts
-â”‚   â”‚   â”œâ”€â”€ events.service.ts
-â”‚   â”‚   â””â”€â”€ events.service.spec.ts
-â”‚   â”œâ”€â”€ app.controller.ts
-â”‚   â”œâ”€â”€ app.module.ts
-â”‚   â””â”€â”€ main.ts
-â”œâ”€â”€ test/
-â”œâ”€â”€ .env
-â”œâ”€â”€ package.json
-â””â”€â”€ README.md
-```
-
 The `data/events.json` file stores the event and session records. The application reads and updates this file when API operations are performed.
 
 ## Installation and Setup
@@ -96,15 +74,15 @@ No database installation or database connection is required for the JSON-based e
 
 All endpoints use the `/api` prefix.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/events` | Retrieve events |
-| GET | `/api/events/:id` | Retrieve one event |
-| POST | `/api/events` | Create an event |
-| PUT | `/api/events/:id` | Update an event |
-| DELETE | `/api/events/:id` | Delete an event |
-| GET | `/api/events/:id/sessions` | Retrieve sessions for an event |
-| GET | `/api/events/:id/sessions/:sessionId` | Retrieve one session |
+| Method | Endpoint                              | Description                    |
+| ------ | ------------------------------------- | ------------------------------ |
+| GET    | `/api/events`                         | Retrieve events                |
+| GET    | `/api/events/:id`                     | Retrieve one event             |
+| POST   | `/api/events`                         | Create an event                |
+| PUT    | `/api/events/:id`                     | Update an event                |
+| DELETE | `/api/events/:id`                     | Delete an event                |
+| GET    | `/api/events/:id/sessions`            | Retrieve sessions for an event |
+| GET    | `/api/events/:id/sessions/:sessionId` | Retrieve one session           |
 
 ## Filtering and Pagination
 
