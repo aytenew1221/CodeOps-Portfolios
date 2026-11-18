@@ -11,6 +11,8 @@ import { Event, EventSession } from './event.interface';
 import { CreateEventDto } from './dto/create-event.dto';
 import { FindEventsQueryDto } from './dto/find-events-query.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { CreateSessionDto } from './dto/create-session.dto';
+import { UpdateSessionDto } from './dto/update-session.dto';
 
 interface EventsFile {
   events: Event[];
@@ -240,7 +242,116 @@ export class EventsService {
           new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime(),
       );
   }
+  async createSession(
+    eventId: string,
+    dto: CreateSessionDto,
+  ): Promise<EventSession> {
+    const data = await this.readData();
 
+    const eventExists = data.events.some((event) => event.id === eventId);
+
+    if (!eventExists) {
+      throw new NotFoundException('Event not found');
+    }
+
+    const start = new Date(dto.startsAt);
+    const end = new Date(dto.endsAt);
+
+    if (end.getTime() <= start.getTime()) {
+      throw new BadRequestException(
+        'Session end time must be after start time',
+      );
+    }
+
+    const session: EventSession = {
+      id: `ses-${Date.now()}`,
+      eventId,
+      title: dto.title,
+      startsAt: start.toISOString(),
+      endsAt: end.toISOString(),
+      room: dto.room,
+    };
+
+    data.sessions.push(session);
+    await this.writeData(data);
+
+    return session;
+  }
+
+  async updateSession(
+    eventId: string,
+    sessionId: string,
+    dto: UpdateSessionDto,
+  ): Promise<EventSession> {
+    const data = await this.readData();
+
+    const eventExists = data.events.some((event) => event.id === eventId);
+
+    if (!eventExists) {
+      throw new NotFoundException('Event not found');
+    }
+
+    const index = data.sessions.findIndex(
+      (session) => session.id === sessionId && session.eventId === eventId,
+    );
+
+    if (index === -1) {
+      throw new NotFoundException('Session not found');
+    }
+
+    const existing = data.sessions[index];
+
+    const startsAt = dto.startsAt ?? existing.startsAt;
+    const endsAt = dto.endsAt ?? existing.endsAt;
+
+    const start = new Date(startsAt);
+    const end = new Date(endsAt);
+
+    if (end.getTime() <= start.getTime()) {
+      throw new BadRequestException(
+        'Session end time must be after start time',
+      );
+    }
+
+    const updatedSession: EventSession = {
+      ...existing,
+      ...dto,
+      startsAt: start.toISOString(),
+      endsAt: end.toISOString(),
+    };
+
+    data.sessions[index] = updatedSession;
+    await this.writeData(data);
+
+    return updatedSession;
+  }
+
+  async removeSession(
+    eventId: string,
+    sessionId: string,
+  ): Promise<EventSession> {
+    const data = await this.readData();
+
+    const eventExists = data.events.some((event) => event.id === eventId);
+
+    if (!eventExists) {
+      throw new NotFoundException('Event not found');
+    }
+
+    const index = data.sessions.findIndex(
+      (session) => session.id === sessionId && session.eventId === eventId,
+    );
+
+    if (index === -1) {
+      throw new NotFoundException('Session not found');
+    }
+
+    const [deletedSession] = data.sessions.splice(index, 1);
+
+    await this.writeData(data);
+
+    return deletedSession;
+  }
   async findSession(eventId: string, sessionId: string): Promise<EventSession> {
     await this.findOne(eventId);
     const data = await this.readData();
