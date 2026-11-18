@@ -44,6 +44,33 @@
       "eventDate": "2026-12-25T09:00:00.000Z",
       "category": "culture",
       "isPublished": true
+    },
+    {
+      "id": "evt-1794807746030",
+      "title": "AI",
+      "description": "Artificial intelligence for Ethiopia.",
+      "location": "Addis ababa",
+      "eventDate": "2026-11-16T05:42:00.000Z",
+      "category": "technology",
+      "isPublished": true
+    },
+    {
+      "id": "evt-1794892727294",
+      "title": "Launch",
+      "description": "Food delivery.",
+      "location": "main hall",
+      "eventDate": "2026-11-17T05:18:00.000Z",
+      "category": "business",
+      "isPublished": false
+    },
+    {
+      "id": "evt-1794932280383",
+      "title": "Library",
+      "description": "reading book.",
+      "location": "Addis ababa",
+      "eventDate": "2026-11-17T16:17:00.000Z",
+      "category": "technology",
+      "isPublished": false
     }
   ],
   "sessions": [
@@ -78,6 +105,22 @@
       "startsAt": "2026-12-10T13:00:00.000Z",
       "endsAt": "2026-12-10T14:00:00.000Z",
       "room": "Room 3"
+    },
+    {
+      "id": "ses-1794891106826",
+      "eventId": "evt-101",
+      "title": "Advanced Security Testing Workshop",
+      "startsAt": "2026-12-04T13:00:00.000Z",
+      "endsAt": "2026-12-04T14:30:00.000Z",
+      "room": "Computer Lab 3"
+    },
+    {
+      "id": "ses-1794891513864",
+      "eventId": "evt-101",
+      "title": "Staff Session Test",
+      "startsAt": "2026-12-04T15:00:00.000Z",
+      "endsAt": "2026-12-04T16:00:00.000Z",
+      "room": "Lab 4"
     }
   ]
 }
